@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AgriApp</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="btn_link_to_login">Already registred! Login Me.</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="name">Fullname</string>
+    <string name="mobileNumber">Mobile Number</string>
+    <string name="location">Location</string>
+    <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
+    <string name="already_user">Already have Account? Login here.</string>
+    <string name="show_pwd">Show Password</string>
+    <string name="hide_pwd">Hide Password</string>
+    <string name="forgot">Forgot password?</string>
+    <string name="signUp">SIGN UP</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="location">
+        <item>Delhi</item>
+        <item>East Delhi</item>
+        <item>North Delhi</item>
+        <item>West Delhi</item>
+        <item>South Delhi</item>
+        <item>Greater Noida</item>
+        <item>Uttar Pradesh</item>
+        <item>Krishna Nagar</item>
+        <item>Nirman Vihar</item>
+        <item>Laxmi Nagar</item>
+        <item>Kashmiri Gate </item>
+        <item>Noida</item>
+    </string-array>
+
+</resources>
