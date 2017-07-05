@@ -33,12 +33,10 @@
             android:label="SenS"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".Activity_Main"
-            android:label="SenS"
-            android:launchMode="singleTop" />
+        <activity android:name=".Activity_Main" />
         <activity android:name=".Data" />
-        <activity android:name=".NevigationDrawer"></activity>
+        <activity android:name=".NevigationDrawer" />
+        <activity android:name=".Logout"></activity>
     </application>
 
 </manifest>

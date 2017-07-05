@@ -24,13 +24,12 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
 import java.util.ArrayList;
 
-
-public class HomeFragment extends Fragment /*implements OnChartGestureListener,
-        OnChartValueSelectedListener*/ {
-   /* private LineChart mChart; */
+public class HomeFragment extends Fragment implements OnChartGestureListener,
+        OnChartValueSelectedListener
+{
+    private LineChart mChart;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -40,43 +39,35 @@ public class HomeFragment extends Fragment /*implements OnChartGestureListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-
-/*
-        mChart = (LineChart) mChart.findViewById(R.id.linechart);
+        View chart = inflater.inflate(R.layout.fragment_home, container, false);
+        mChart = (LineChart) chart.findViewById(R.id.linechart);
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
 
         // add data
         setData();
-
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
 
         // modify the legend ...
         // l.setPosition(LegendPosition.LEFT_OF_CHART);
         l.setForm(Legend.LegendForm.LINE);
-
         // no description text
-        mChart.setDescription("Demo Line Chart");
+        mChart.setDescription("Line Chart");
         mChart.setNoDataTextDescription("You need to provide data for the chart.");
-
         // enable touch gestures
         mChart.setTouchEnabled(true);
-
         // enable scaling and dragging
         mChart.setDragEnabled(true);
         mChart.setScaleEnabled(true);
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
-
         LimitLine upper_limit = new LimitLine(130f, "Upper Limit");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         upper_limit.setTextSize(10f);
-
         LimitLine lower_limit = new LimitLine(-30f, "Lower Limit");
         lower_limit.setLineWidth(4f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
@@ -92,55 +83,44 @@ public class HomeFragment extends Fragment /*implements OnChartGestureListener,
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
-
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
-
         mChart.getAxisRight().setEnabled(false);
-
         //mChart.getViewPortHandler().setMaximumScaleY(2f);
         //mChart.getViewPortHandler().setMaximumScaleX(2f);
-
         mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-
         //  dont forget to refresh the drawing
         mChart.invalidate();
-
+        return chart;
     }
 
-
-    private ArrayList<String> setXAxisValues(){
+    private ArrayList<String> setXAxisValues() {
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("10");
         xVals.add("20");
         xVals.add("30");
         xVals.add("40");
         xVals.add("50");
-
         return xVals;
     }
 
-    private ArrayList<Entry> setYAxisValues(){
+    private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
         yVals.add(new Entry(60, 0));
         yVals.add(new Entry(48, 1));
         yVals.add(new Entry(70.5f, 2));
         yVals.add(new Entry(100, 3));
         yVals.add(new Entry(180.9f, 4));
-
         return yVals;
     }
 
     private void setData() {
         ArrayList<String> xVals = setXAxisValues();
-
         ArrayList<Entry> yVals = setYAxisValues();
-
         LineDataSet set1;
 
         // create a dataset and give it a type
         set1 = new LineDataSet(yVals, "DataSet 1");
-
         set1.setFillAlpha(110);
         // set1.setFillColor(Color.RED);
 
@@ -160,12 +140,9 @@ public class HomeFragment extends Fragment /*implements OnChartGestureListener,
 
         // create a data object with the datasets
         LineData data = new LineData(xVals, dataSets);
-
         // set data
         mChart.setData(data);
-
     }
-
 
     @Override
     public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
@@ -177,7 +154,7 @@ public class HomeFragment extends Fragment /*implements OnChartGestureListener,
         Log.i("Gesture", "END, lastGesture: " + lastPerformedGesture);
 
         // un-highlight values after the gesture is finished and no single-tap
-        if(lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP)
+        if (lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP)
             mChart.highlightValues(null); // or highlightTouch(null) for callback to onNothingSelected(...)
     }
 
@@ -223,7 +200,4 @@ public class HomeFragment extends Fragment /*implements OnChartGestureListener,
         Log.i("Nothing selected", "Nothing selected.");
     }
 
-
-    } */
-    }
 }

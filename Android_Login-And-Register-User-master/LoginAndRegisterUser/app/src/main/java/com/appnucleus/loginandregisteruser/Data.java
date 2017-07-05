@@ -37,8 +37,8 @@ public class Data extends AppCompatActivity implements OnChartGestureListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // To make full screen layout
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+   //     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+      //          WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_data);
 
 

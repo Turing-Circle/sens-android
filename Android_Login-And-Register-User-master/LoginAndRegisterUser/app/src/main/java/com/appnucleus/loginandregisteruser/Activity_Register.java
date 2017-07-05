@@ -35,9 +35,9 @@ import helper.SessionManager;
 import volley.AppController;
 import volley.Config_URL;
 
+import static volley.AppController.TAG;
 
 public class Activity_Register extends Activity {
-
 
     EditText name,email,phone,location,pass_a,productid;
     String namex,emailx,phonex,locationx,passx,prodct,url,pass_c;
@@ -49,6 +49,7 @@ public class Activity_Register extends Activity {
     AutoCompleteTextView autoCompleteTextView;
     String[] location_names;
     private SessionManager session;
+    private Button btnLinkToLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class Activity_Register extends Activity {
         productid = (EditText)findViewById(R.id.p_id);
         terms_conditions = (CheckBox) findViewById(R.id.terms_conditions);
         b = (Button)findViewById(R.id.btnRegister);
+        btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
 
         XmlResourceParser xrp = getResources().getXml(R.xml.text_selector);
         try {
@@ -80,97 +82,101 @@ public class Activity_Register extends Activity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(Activity_Register.this,
-                    Activity_Main.class);
+            Intent intent = new Intent(Activity_Register.this, NevigationDrawer.class);
             startActivity(intent);
             finish();
         }
 
-
-
-
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 namex = name.getText().toString();
-                emailx = (email.getText().toString()).trim();
-                phonex = (phone.getText().toString()).trim();
+                emailx = email.getText().toString();
+                phonex = phone.getText().toString();
                 locationx = location.getText().toString();
                 passx = pass_a.getText().toString().trim();
                 prodct = productid.getText().toString();
                 pass_c = confirmPassword.getText().toString();
-                b.setEnabled(false);
 
-                if ((!namex.isEmpty() && !emailx.isEmpty() && !passx.isEmpty()  && !phonex.isEmpty() && locationx.isEmpty() && prodct.isEmpty())) {
-                        if(passx.equals(pass_c)) {
-                            sendd();
-                        } else{
-                                Toast.makeText(getApplicationContext(),
-                                        "Password not match", Toast.LENGTH_SHORT).show();
-                            }
+                if(namex.equals("")||emailx.equals("")||phonex.equals("")||passx.equals("")||locationx.equals("")||prodct.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Please enter your details!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),
-                            "Please enter your details!", Toast.LENGTH_SHORT)
-                            .show();
+                    if(!terms_conditions.isChecked()) {
+                        Toast.makeText(getApplicationContext(), "Terms and conditions", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        if(passx.equals(pass_c)) {
+                            sendd();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Password not match", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
-
             }
         });
 
-        // Auto Complete text field
-        autoCompleteTextView = (AutoCompleteTextView)findViewById(R.id.location);
-        location_names = getResources().getStringArray(R.array.location);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, location_names);
-        autoCompleteTextView.setAdapter(adapter);
+                // Link to Login Screen
+                btnLinkToLogin.setOnClickListener(new View.OnClickListener() {
 
-    }
+                    public void onClick(View view) {
+                        Intent i = new Intent(getApplicationContext(), Activity_Login.class);
+                        startActivity(i);
+                        finish();
+                        overridePendingTransition(com.appnucleus.loginandregisteruser.R.anim.push_left_in, com.appnucleus.loginandregisteruser.R.anim.push_left_out);
+                    }
+                });
 
-    public void sendd()
-    {
-
-        dialog = ProgressDialog.show(Activity_Register.this, "","Signing Up Please wait...", true);
-        url = "https://sens-agriculture.herokuapp.com/signup?name="+namex+"&uname="+emailx+"&phone="+phonex+"&loc="+locationx+"&pwd="+passx+"&pid="+prodct;
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    check();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                // Auto Complete text field
+                autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.location);
+                location_names = getResources().getStringArray(R.array.location);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, location_names);
+                autoCompleteTextView.setAdapter(adapter);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+
+
+            public void sendd() {
+                dialog = ProgressDialog.show(Activity_Register.this, "", "Signing Up Please wait...", true);
+                url = "https://sens-agriculture.herokuapp.com/signup?name=" + namex + "&uname=" + emailx + "&phone=" + phonex + "&loc=" + locationx + "&pwd=" + passx + "&pid=" + prodct;
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            check();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Registration Error: " + error.getMessage());
+                        Toast.makeText(getApplicationContext(),
+                                error.getMessage(), Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                });
+
+                rq.add(jsonObjectRequest);
 
             }
-        });
 
-        rq.add(jsonObjectRequest);
+            public void check() {
+                dialog.dismiss();
 
-    }
+                Toast.makeText(getApplicationContext(), "*** Sign up Complete ***", Toast.LENGTH_LONG).show();
 
-    public void check()
-    {
-        dialog.dismiss();
+                name.setText("");
+                email.setText("");
+                phone.setText("");
+                location.setText("");
+                pass_a.setText("");
+                productid.setText("");
+                confirmPassword.setText("");
 
-        Toast.makeText(getApplicationContext(), "*** Sign up Complete ***", Toast.LENGTH_LONG).show();
-
-        name.setText("");
-        email.setText("");
-        phone.setText("");
-        location.setText("");
-        pass_a.setText("");
-        productid.setText("");
-        confirmPassword.setText("");
-
-        Intent i1 = new Intent(Activity_Register.this, Activity_Login.class);
-        startActivity(i1);
-        //after pressing button
-    }
-
-
-
-}
+                Intent i1 = new Intent(Activity_Register.this, Activity_Login.class);
+                startActivity(i1);
+                //after pressing button
+            }
+        }

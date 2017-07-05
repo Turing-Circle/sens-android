@@ -1,11 +1,13 @@
 package com.appnucleus.loginandregisteruser;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
@@ -40,7 +42,7 @@ public class NevigationDrawer extends AppCompatActivity {
         fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container, new HomeFragment());
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle("Home Fragment");
+        getSupportActionBar().setTitle("Temperature Chart");
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -50,7 +52,7 @@ public class NevigationDrawer extends AppCompatActivity {
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, new HomeFragment());
                         fragmentTransaction.commit();
-                        getSupportActionBar().setTitle("Home Fragment");
+                        getSupportActionBar().setTitle("Temperature Chart");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         break;
@@ -59,7 +61,7 @@ public class NevigationDrawer extends AppCompatActivity {
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, new MessageFragment());
                         fragmentTransaction.commit();
-                        getSupportActionBar().setTitle("Message Fragment");
+                        getSupportActionBar().setTitle("Humidity Chart");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         break;
@@ -102,7 +104,11 @@ public class NevigationDrawer extends AppCompatActivity {
             return true;
         }
         if(log_id == R.id.log_out){
-            return true;
+            Intent intent = new Intent(NevigationDrawer.this, Logout.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+      //      return true;
         }
 
         return super.onOptionsItemSelected(item);

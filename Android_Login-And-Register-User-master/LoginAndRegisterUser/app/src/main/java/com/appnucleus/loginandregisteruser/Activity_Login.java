@@ -66,11 +66,14 @@ public class Activity_Login extends Activity {
 
         // Session manager
         session = new SessionManager(getApplicationContext());
+        if (!session.isLoggedIn()) {
+            session.setLogin(false);
+        }
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(Activity_Login.this, NevigationDrawer.class); // Activity_Main ->> Data.class It is done to start data activity
+            Intent intent = new Intent(Activity_Login.this, NevigationDrawer.class);
             startActivity(intent);
             finish();
         }
@@ -88,8 +91,6 @@ public class Activity_Login extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
             }
 
         });
@@ -105,8 +106,6 @@ public class Activity_Login extends Activity {
                 overridePendingTransition(com.appnucleus.loginandregisteruser.R.anim.push_left_in, com.appnucleus.loginandregisteruser.R.anim.push_left_out);
             }
         });
-
-
     }
 
     public void sendr() {
@@ -133,7 +132,7 @@ public class Activity_Login extends Activity {
                         }
                     } else{
                         dialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "E-mail/password Invalid", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -161,6 +160,9 @@ public class Activity_Login extends Activity {
             i1.putExtra("p_id1", p_id);
             startActivity(i1);
             hideDialog();
+
+            inputEmail.setText("");
+            inputPassword.setText("");
         }
     }
 
