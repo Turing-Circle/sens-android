@@ -2,10 +2,12 @@ package com.appnucleus.loginandregisteruser;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,7 +16,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -23,19 +24,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import helper.SQLiteHandler;
-import helper.SessionManager;
-import volley.AppController;
-import volley.Config_URL;
-
-import static volley.AppController.TAG;
+import static android.content.ContentValues.TAG;
 
 public class Activity_Register extends Activity {
 
@@ -48,8 +41,8 @@ public class Activity_Register extends Activity {
     EditText confirmPassword;
     AutoCompleteTextView autoCompleteTextView;
     String[] location_names;
-    private SessionManager session;
     private Button btnLinkToLogin;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +69,6 @@ public class Activity_Register extends Activity {
         } catch (Exception e) {
         }
 
-        // Session manager
-        session = new SessionManager(getApplicationContext());
-
-        // Check if user is already logged in or not
-        if (session.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
-            Intent intent = new Intent(Activity_Register.this, NevigationDrawer.class);
-            startActivity(intent);
-            finish();
-        }
 
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -99,10 +82,12 @@ public class Activity_Register extends Activity {
 
                 if(namex.equals("")||emailx.equals("")||phonex.equals("")||passx.equals("")||locationx.equals("")||prodct.equals("")) {
                     Toast.makeText(getApplicationContext(), "Please enter your details!", Toast.LENGTH_SHORT).show();
+                    vibrate(btnRegister);
                 }
                 else {
                     if(!terms_conditions.isChecked()) {
                         Toast.makeText(getApplicationContext(), "Terms and conditions", Toast.LENGTH_SHORT).show();
+                        vibrate(btnRegister);
                     }
                     else {
                         if(passx.equals(pass_c)) {
@@ -110,6 +95,7 @@ public class Activity_Register extends Activity {
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Password not match", Toast.LENGTH_SHORT).show();
+                            vibrate(btnRegister);
                         }
                     }
                 }
@@ -133,7 +119,6 @@ public class Activity_Register extends Activity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, location_names);
                 autoCompleteTextView.setAdapter(adapter);
             }
-
 
             public void sendd() {
                 dialog = ProgressDialog.show(Activity_Register.this, "", "Signing Up Please wait...", true);
@@ -162,10 +147,15 @@ public class Activity_Register extends Activity {
 
             }
 
+    public void vibrate(View view) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
+    }
+
             public void check() {
                 dialog.dismiss();
 
-                Toast.makeText(getApplicationContext(), "*** Sign up Complete ***", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "User Registered", Toast.LENGTH_LONG).show();
 
                 name.setText("");
                 email.setText("");
@@ -177,6 +167,6 @@ public class Activity_Register extends Activity {
 
                 Intent i1 = new Intent(Activity_Register.this, Activity_Login.class);
                 startActivity(i1);
-                //after pressing button
+                finish();
             }
         }

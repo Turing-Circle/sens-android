@@ -7,10 +7,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-/*
-* 	We are creating a Application Singleton Object by extending Application, so it should be declared as a application in the "AndroidMainFests" file
-* */
-
 public class AppController extends Application
 {
 	public static final String TAG = AppController.class.getSimpleName();
@@ -39,16 +35,6 @@ public class AppController extends Application
 			mRequestQueue = Volley.newRequestQueue(getApplicationContext());
 		}
 		return mRequestQueue;
-	}
-
-	public ImageLoader getImageLoader()
-	{
-		getRequestQueue();
-		if (mImageLoader == null)
-		{
-			mImageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
-		}
-		return this.mImageLoader;
 	}
 
 	public <T> void addToRequestQueue(Request<T> req, String tag)

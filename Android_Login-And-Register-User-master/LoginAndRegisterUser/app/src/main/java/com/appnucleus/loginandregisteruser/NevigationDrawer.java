@@ -1,25 +1,15 @@
 package com.appnucleus.loginandregisteruser;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class NevigationDrawer extends AppCompatActivity {
     Toolbar toolbar;
@@ -40,7 +30,7 @@ public class NevigationDrawer extends AppCompatActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
         fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container, new HomeFragment());
+        fragmentTransaction.add(R.id.main_container, new TemperatureFragment());
         fragmentTransaction.commit();
         getSupportActionBar().setTitle("Temperature Chart");
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -48,42 +38,56 @@ public class NevigationDrawer extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.home_id:
+                    case R.id.temperature:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new HomeFragment());
+                        fragmentTransaction.replace(R.id.main_container, new TemperatureFragment());
                         fragmentTransaction.commit();
                         getSupportActionBar().setTitle("Temperature Chart");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         break;
 
-                    case R.id.id_message:
+                    case R.id.humidity:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new MessageFragment());
+                        fragmentTransaction.replace(R.id.main_container, new HumidityFragment());
                         fragmentTransaction.commit();
                         getSupportActionBar().setTitle("Humidity Chart");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         break;
 
-                    case R.id.id_settings:
+                    case R.id.moisture:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new SettingsFragment());
+                        fragmentTransaction.replace(R.id.main_container, new MoistureFragment());
                         fragmentTransaction.commit();
-                        getSupportActionBar().setTitle("Settings Fragment");
+                        getSupportActionBar().setTitle("Moisture Chart");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         break;
 
+                    case R.id.uv:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new UVFragment());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle("UV Chart");
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
+
+                    case R.id.co:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new COFragment());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle("CO Chart");
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
                 }
                 return false;
             }
 
         });
-
-
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

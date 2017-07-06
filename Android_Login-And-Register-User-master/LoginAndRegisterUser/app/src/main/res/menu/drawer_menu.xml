@@ -4,22 +4,35 @@
 
     <group android:checkableBehavior="single">
     <item
-        android:id="@+id/home_id"
+        android:id="@+id/temperature"
         android:title="Temperature Chart"
         android:icon="@drawable/ic_menu_slideshow"
         > </item>
 
     <item
-        android:id="@+id/id_message"
+        android:id="@+id/humidity"
         android:title="Humidity Chart"
         android:icon="@drawable/ic_menu_gallery"
         > </item>
 
     <item
-        android:id="@+id/id_settings"
-        android:title="Settings"
-        android:icon="@drawable/ic_menu_manage"
+        android:id="@+id/moisture"
+        android:title="Moisture Chart"
+        android:icon="@drawable/ic_menu_gallery"
         > </item>
+
+        <item
+            android:id="@+id/uv"
+            android:title="UV Chart"
+            android:icon="@drawable/ic_menu_gallery"
+            > </item>
+
+        <item
+            android:id="@+id/co"
+            android:title="CO Chart"
+            android:icon="@drawable/ic_menu_gallery"
+            > </item>
+
 </group>
 
     <item android:title="Social">

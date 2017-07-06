@@ -2,16 +2,18 @@ package com.appnucleus.loginandregisteruser;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -20,28 +22,23 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import android.os.Vibrator;
 
-import helper.SessionManager;
-import volley.AppController;
-import volley.Config_URL;
 
 public class Activity_Login extends Activity {
     // LogCat tag
     private static final String TAG = Activity_Register.class.getSimpleName();
     private Button btnLogin;
-    private Button btnLinkToRegister;
+    private Button btnLinkToRegister, btnLinkToForgotPassword;
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
-    private SessionManager session;
     RequestQueue rq;
     ProgressDialog dialog;
     String p_id, name3, name4;
@@ -55,28 +52,15 @@ public class Activity_Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(com.appnucleus.loginandregisteruser.R.layout.activity_login);
 
-        inputEmail = (EditText) findViewById(com.appnucleus.loginandregisteruser.R.id.email);
-        inputPassword = (EditText) findViewById(com.appnucleus.loginandregisteruser.R.id.password);
-        btnLogin = (Button) findViewById(com.appnucleus.loginandregisteruser.R.id.btnLogin);
-        btnLinkToRegister = (Button) findViewById(com.appnucleus.loginandregisteruser.R.id.btnLinkToRegisterScreen);
-
+        inputEmail = (EditText) findViewById(R.id.email);
+        inputPassword = (EditText) findViewById(R.id.password);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
+        btnLinkToForgotPassword = (Button) findViewById(R.id.forgot_password);
         // Progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        // Session manager
-        session = new SessionManager(getApplicationContext());
-        if (!session.isLoggedIn()) {
-            session.setLogin(false);
-        }
-
-        // Check if user is already logged in or not
-        if (session.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
-            Intent intent = new Intent(Activity_Login.this, NevigationDrawer.class);
-            startActivity(intent);
-            finish();
-        }
 
         // Login button Click Event
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +90,15 @@ public class Activity_Login extends Activity {
                 overridePendingTransition(com.appnucleus.loginandregisteruser.R.anim.push_left_in, com.appnucleus.loginandregisteruser.R.anim.push_left_out);
             }
         });
+
+        btnLinkToForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_Login.this, ForgotPassword.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     public void sendr() {
@@ -132,6 +125,10 @@ public class Activity_Login extends Activity {
                         }
                     } else{
                         dialog.dismiss();
+                        Animation shake = AnimationUtils.loadAnimation(Activity_Login.this, R.anim.shake);
+                        inputPassword.startAnimation(shake);
+                        inputEmail.startAnimation(shake);
+                        vibrate(btnLogin);
                         Toast.makeText(getApplicationContext(), "E-mail/password Invalid", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
@@ -159,11 +156,17 @@ public class Activity_Login extends Activity {
             Intent i1 = new Intent(Activity_Login.this, NevigationDrawer.class);
             i1.putExtra("p_id1", p_id);
             startActivity(i1);
-            hideDialog();
+            finish();
 
             inputEmail.setText("");
             inputPassword.setText("");
+
         }
+    }
+
+    public void vibrate(View view) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
     }
 
     private void showDialog() {
