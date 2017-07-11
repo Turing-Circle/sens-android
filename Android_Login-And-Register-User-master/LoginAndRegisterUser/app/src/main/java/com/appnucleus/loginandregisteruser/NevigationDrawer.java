@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
+import static java.security.AccessController.getContext;
 
 public class NevigationDrawer extends AppCompatActivity {
     Toolbar toolbar;
@@ -17,9 +20,16 @@ public class NevigationDrawer extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
+    public static String prod_id;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
+
+        prod_id = getIntent().getStringExtra("p_id1");
+        Toast.makeText(getApplicationContext(), "Product ID 1 is : " + prod_id, Toast.LENGTH_LONG).show();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nevigation_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -34,10 +44,12 @@ public class NevigationDrawer extends AppCompatActivity {
         fragmentTransaction.commit();
         getSupportActionBar().setTitle("Temperature Chart");
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
+
                     case R.id.temperature:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, new TemperatureFragment());

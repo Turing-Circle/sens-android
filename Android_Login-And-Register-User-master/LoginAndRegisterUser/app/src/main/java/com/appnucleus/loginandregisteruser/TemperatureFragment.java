@@ -8,7 +8,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -22,6 +28,11 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 
@@ -29,9 +40,14 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
         OnChartValueSelectedListener
 {
     private LineChart mChart;
+    String prod_id1;
+    RequestQueue rq;
+    String url1;
+    double[] temp2;
 
     public TemperatureFragment() {
         // Required empty public constructor
+
     }
 
     @Override
@@ -44,8 +60,13 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
 
+
+        NevigationDrawer n = new NevigationDrawer();
+        prod_id1 = n.prod_id;
+        Toast.makeText(getContext(), "Product ID is : " + prod_id1, Toast.LENGTH_LONG).show();
         // add data
         setData();
+
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
 
@@ -211,4 +232,47 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
     public void onNothingSelected() {
         Log.i("Nothing selected", "Nothing selected.");
     }
+
+
+    public void sendr2()
+    {
+
+        url1 = "https://sens-agriculture.herokuapp.com/sensordata?pid=pSENS";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    JSONArray obj = response.getJSONArray("rows");
+                    int aa = obj.length();
+                    temp2 = new double[aa];
+
+                    for (int i = 0; i < aa; i++){
+                        JSONObject jsonObject1 = obj.getJSONObject(i);
+                        temp2[i] = Double.parseDouble(jsonObject1.getString("temprature"));
+                    }
+                    check();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        rq.add(jsonObjectRequest);
+    }
+
+    public void check() {
+        String b = "";
+        for(int i = 0; i < temp2.length; i++) {
+            b += Double.toString(temp2[i]) + "  ";
+        }
+    }
+
 }
