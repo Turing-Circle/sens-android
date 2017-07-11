@@ -42,7 +42,7 @@ public class Activity_Login extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        rq = Volley.newRequestQueue(this);
+        rq = Volley.newRequestQueue(Activity_Login.this);
         super.onCreate(savedInstanceState);
         setContentView(com.appnucleus.loginandregisteruser.R.layout.activity_login);
 

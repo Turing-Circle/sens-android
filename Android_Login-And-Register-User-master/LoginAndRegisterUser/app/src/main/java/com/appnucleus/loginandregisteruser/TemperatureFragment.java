@@ -9,12 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -29,11 +23,10 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+
 
 
 public class TemperatureFragment extends Fragment implements OnChartGestureListener,
@@ -41,9 +34,9 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
 {
     private LineChart mChart;
     String prod_id1;
-    RequestQueue rq;
-    String url1;
-    double[] temp2;
+    private static final String TAG = "nav";
+
+    NevigationDrawer n;
 
     public TemperatureFragment() {
         // Required empty public constructor
@@ -61,9 +54,9 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
         mChart.setDrawGridBackground(false);
 
 
-        NevigationDrawer n = new NevigationDrawer();
-        prod_id1 = n.prod_id;
-        Toast.makeText(getContext(), "Product ID is : " + prod_id1, Toast.LENGTH_LONG).show();
+        prod_id1 = NevigationDrawer.b;
+        //Toast.makeText(getContext(), "Product ID 3 is : " + prod_id1, Toast.LENGTH_LONG).show();
+        Log.v(TAG, "temp");
         // add data
         setData();
 
@@ -116,6 +109,7 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
 
     private ArrayList<String> setXAxisValues() {
         ArrayList<String> xVals = new ArrayList<String>();
+
         xVals.add("10");
         xVals.add("20");
         xVals.add("30");
@@ -133,7 +127,8 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
 
     private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-        yVals.add(new Entry(60, 0));
+
+        yVals.add(new Entry(40, 0));
         yVals.add(new Entry(48, 1));
         yVals.add(new Entry(70.5f, 2));
         yVals.add(new Entry(100, 3));
@@ -148,6 +143,7 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
     }
 
     private void setData() {
+
         ArrayList<String> xVals = setXAxisValues();
         ArrayList<Entry> yVals = setYAxisValues();
         LineDataSet set1;
@@ -231,48 +227,6 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
     @Override
     public void onNothingSelected() {
         Log.i("Nothing selected", "Nothing selected.");
-    }
-
-
-    public void sendr2()
-    {
-
-        url1 = "https://sens-agriculture.herokuapp.com/sensordata?pid=pSENS";
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-
-                    JSONArray obj = response.getJSONArray("rows");
-                    int aa = obj.length();
-                    temp2 = new double[aa];
-
-                    for (int i = 0; i < aa; i++){
-                        JSONObject jsonObject1 = obj.getJSONObject(i);
-                        temp2[i] = Double.parseDouble(jsonObject1.getString("temprature"));
-                    }
-                    check();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        rq.add(jsonObjectRequest);
-    }
-
-    public void check() {
-        String b = "";
-        for(int i = 0; i < temp2.length; i++) {
-            b += Double.toString(temp2[i]) + "  ";
-        }
     }
 
 }

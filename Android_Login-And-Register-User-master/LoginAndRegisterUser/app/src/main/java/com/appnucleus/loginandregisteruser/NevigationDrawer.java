@@ -6,13 +6,27 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 import static java.security.AccessController.getContext;
+
 
 public class NevigationDrawer extends AppCompatActivity {
     Toolbar toolbar;
@@ -21,16 +35,27 @@ public class NevigationDrawer extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
     public static String prod_id;
+    public static String b = " ";
+    String url1;
+    RequestQueue rq;
+    public static double temp2[];
+    int aa;
+    private static final String TAG = "nav";
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
 
+
         prod_id = getIntent().getStringExtra("p_id1");
         Toast.makeText(getApplicationContext(), "Product ID 1 is : " + prod_id, Toast.LENGTH_LONG).show();
 
+        //json object request start
+        rq = Volley.newRequestQueue(this);
+        //json object request end
 
         super.onCreate(savedInstanceState);
+        sendr();
         setContentView(R.layout.activity_nevigation_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,6 +76,7 @@ public class NevigationDrawer extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.temperature:
+
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, new TemperatureFragment());
                         fragmentTransaction.commit();
@@ -137,5 +163,46 @@ public class NevigationDrawer extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
+    public void sendr(){
+        Log.v(TAG, "method");
+
+        url1 = "https://sens-agriculture.herokuapp.com/sensordata?pid="+prod_id;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.v(TAG, "try");
+                    JSONArray obj = response.getJSONArray("rows");
+                    aa = obj.length();
+                    temp2 = new double[aa];
+                    Toast.makeText(getApplicationContext(), " entered in method ", Toast.LENGTH_LONG).show();
+
+                    for (int i = 0; i < aa; i++){
+                        JSONObject jsonObject1 = obj.getJSONObject(i);
+                        temp2[i] = Double.parseDouble(jsonObject1.getString("temprature"));
+                        b = b+temp2[i];
+                    }
+                    Toast.makeText(getApplicationContext(), "Product ID 2 is : " + aa, Toast.LENGTH_LONG).show();
+                    //check();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        rq.add(jsonObjectRequest);
+
+    }
+
+    public void check()
+    {
+        Toast.makeText(getApplicationContext(), "Product ID 2 is : " + aa, Toast.LENGTH_LONG).show();
+    }
 
 }

@@ -13,7 +13,7 @@
     <uses-library android:name="com.google.android.maps" />
 
     <application
-        android:name="volley.AppController"
+        android:label="SenS"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:supportsRtl="true"
@@ -37,6 +37,7 @@
         <activity android:name=".NevigationDrawer" />
         <activity android:name=".Logout" />
         <activity android:name=".ForgotPassword"></activity>
+
     </application>
 
 </manifest>
