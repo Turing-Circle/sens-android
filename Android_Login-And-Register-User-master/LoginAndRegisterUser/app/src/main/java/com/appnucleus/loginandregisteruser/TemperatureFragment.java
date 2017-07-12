@@ -53,10 +53,6 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
 
-
-        prod_id1 = NevigationDrawer.b;
-        //Toast.makeText(getContext(), "Product ID 3 is : " + prod_id1, Toast.LENGTH_LONG).show();
-        Log.v(TAG, "temp");
         // add data
         setData();
 
@@ -91,8 +87,8 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(upper_limit);
         leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(220f);
-        leftAxis.setAxisMinValue(-50f);
+        leftAxis.setAxisMaxValue(60f);
+        leftAxis.setAxisMinValue(-10f);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
@@ -110,36 +106,20 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
     private ArrayList<String> setXAxisValues() {
         ArrayList<String> xVals = new ArrayList<String>();
 
-        xVals.add("10");
-        xVals.add("20");
-        xVals.add("30");
-        xVals.add("40");
-        xVals.add("50");
-        xVals.add("60");
-        xVals.add("70");
-        xVals.add("80");
-        xVals.add("90");
-        xVals.add("100");
-        xVals.add("110");
+        for(int i = 0; i < 12; i++){
+        xVals.add(i+"");
+        }
         return xVals;
+
     }
 
 
     private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-
-        yVals.add(new Entry(40, 0));
-        yVals.add(new Entry(48, 1));
-        yVals.add(new Entry(70.5f, 2));
-        yVals.add(new Entry(100, 3));
-        yVals.add(new Entry(180.9f, 4));
-        yVals.add(new Entry(120, 5));
-        yVals.add(new Entry(100, 6));
-        yVals.add(new Entry(140, 7));
-        yVals.add(new Entry(125, 8));
-        yVals.add(new Entry(50, 9));
-
-        return yVals;
+    for (int i = 0; i <12; i++ ) {
+        yVals.add(new Entry(NevigationDrawer.temp2[i], i));
+    }
+    return yVals;
     }
 
     private void setData() {
