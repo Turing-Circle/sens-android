@@ -7,13 +7,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,12 +29,10 @@ public class NevigationDrawer extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
     public static String prod_id;
-    public static String b = " ";
     String url1;
     RequestQueue rq;
-    public static float temp2[];
+    public static float temp2[], humid[], co[], ph[], light[];
     int aa;
-    private static final String TAG = "nav";
 
     @Override
 
@@ -44,7 +40,6 @@ public class NevigationDrawer extends AppCompatActivity {
 
 
         prod_id = getIntent().getStringExtra("p_id1");
-        Toast.makeText(getApplicationContext(), "Product ID 1 is : " + prod_id, Toast.LENGTH_LONG).show();
 
         //json object request start
         rq = Volley.newRequestQueue(this);
@@ -64,8 +59,6 @@ public class NevigationDrawer extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Do something after 5s = 5000ms
-
                 fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.main_container, new TemperatureFragment());
                 fragmentTransaction.commit();
@@ -76,9 +69,7 @@ public class NevigationDrawer extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
                         switch (item.getItemId()) {
-
                             case R.id.temperature:
-
                                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new TemperatureFragment());
                                 fragmentTransaction.commit();
@@ -100,7 +91,7 @@ public class NevigationDrawer extends AppCompatActivity {
                                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new MoistureFragment());
                                 fragmentTransaction.commit();
-                                getSupportActionBar().setTitle("Moisture Chart");
+                                getSupportActionBar().setTitle("pH Chart");
                                 item.setChecked(true);
                                 drawerLayout.closeDrawers();
                                 break;
@@ -109,7 +100,7 @@ public class NevigationDrawer extends AppCompatActivity {
                                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new UVFragment());
                                 fragmentTransaction.commit();
-                                getSupportActionBar().setTitle("UV Chart");
+                                getSupportActionBar().setTitle("Light Chart");
                                 item.setChecked(true);
                                 drawerLayout.closeDrawers();
                                 break;
@@ -129,8 +120,7 @@ public class NevigationDrawer extends AppCompatActivity {
                 });
 
             }
-        }, 800);
-
+        }, 500);
     }
 
     @Override
@@ -177,16 +167,24 @@ public class NevigationDrawer extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.v(TAG, "try");
                     JSONArray obj = response.getJSONArray("rows");
                     aa = obj.length();
                     temp2 = new float[aa];
+                    humid = new float[aa];
+                    co = new float[aa];
+                    ph = new float[aa];
+                    light = new float[aa];
+
                    // Toast.makeText(getApplicationContext(), " entered in method ", Toast.LENGTH_LONG).show();
 
                     for (int i = 0; i < aa; i++) {
                         JSONObject jsonObject1 = obj.getJSONObject(i);
                         temp2[i] = Float.parseFloat(jsonObject1.getString("temprature"));
-                        b = b + temp2[i];
+                        humid[i] = Float.parseFloat(jsonObject1.getString("humidity"));
+                        co[i] = Float.parseFloat(jsonObject1.getString("co_leve"));
+                        ph[i] = Float.parseFloat(jsonObject1.getString("ph"));
+                        light[i] = Float.parseFloat(jsonObject1.getString("light"));
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

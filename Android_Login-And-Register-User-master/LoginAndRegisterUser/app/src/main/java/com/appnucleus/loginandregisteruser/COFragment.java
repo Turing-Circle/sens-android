@@ -66,13 +66,13 @@ public class COFragment extends Fragment implements OnChartGestureListener,
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
 
-        LimitLine upper_limit = new LimitLine(130f, "Upper Limit");
+        LimitLine upper_limit = new LimitLine(1f, "Upper Limit");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         upper_limit.setTextSize(10f);
 
-        LimitLine lower_limit = new LimitLine(-30f, "Lower Limit");
+        LimitLine lower_limit = new LimitLine(-0.5f, "Lower Limit");
         lower_limit.setLineWidth(4f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
         lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
@@ -82,8 +82,8 @@ public class COFragment extends Fragment implements OnChartGestureListener,
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(upper_limit);
         leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(220f);
-        leftAxis.setAxisMinValue(-50f);
+        leftAxis.setAxisMaxValue(3f);
+        leftAxis.setAxisMinValue(-0.7f);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
@@ -106,34 +106,17 @@ public class COFragment extends Fragment implements OnChartGestureListener,
 
     private ArrayList<String> setXAxisValues() {
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("50");
-        xVals.add("100");
-        xVals.add("150");
-        xVals.add("200");
-        xVals.add("250");
-        xVals.add("300");
-        xVals.add("350");
-        xVals.add("400");
-        xVals.add("450");
-        xVals.add("500");
-        xVals.add("550");
-
+        for(int i = 0; i < 12; i++){
+            xVals.add(i+"");
+        }
         return xVals;
     }
 
     private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-        yVals.add(new Entry(200, 0));
-        yVals.add(new Entry(80, 1));
-        yVals.add(new Entry(0, 2));
-        yVals.add(new Entry(120, 3));
-        yVals.add(new Entry(180.9f, 4));
-        yVals.add(new Entry(120, 5));
-        yVals.add(new Entry(100, 6));
-        yVals.add(new Entry(140, 7));
-        yVals.add(new Entry(125, 8));
-        yVals.add(new Entry(50, 9));
-
+        for (int i = 0; i <12; i++ ) {
+            yVals.add(new Entry(NevigationDrawer.co[i], i));
+        }
         return yVals;
     }
 

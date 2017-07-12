@@ -17,13 +17,13 @@
 
     <item
         android:id="@+id/moisture"
-        android:title="Moisture Chart"
+        android:title="pH Chart"
         android:icon="@drawable/ic_menu_gallery"
         > </item>
 
         <item
             android:id="@+id/uv"
-            android:title="UV Chart"
+            android:title="Light Chart"
             android:icon="@drawable/ic_menu_gallery"
             > </item>
 

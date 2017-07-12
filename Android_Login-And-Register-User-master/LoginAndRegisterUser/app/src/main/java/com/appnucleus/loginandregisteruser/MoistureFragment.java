@@ -68,13 +68,13 @@ public class MoistureFragment extends Fragment implements OnChartGestureListener
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
 
-        LimitLine upper_limit = new LimitLine(130f, "Upper Limit");
+        LimitLine upper_limit = new LimitLine(14f, "Upper Limit");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         upper_limit.setTextSize(10f);
 
-        LimitLine lower_limit = new LimitLine(-30f, "Lower Limit");
+        LimitLine lower_limit = new LimitLine(0f, "Lower Limit");
         lower_limit.setLineWidth(4f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
         lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
@@ -84,8 +84,8 @@ public class MoistureFragment extends Fragment implements OnChartGestureListener
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(upper_limit);
         leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(220f);
-        leftAxis.setAxisMinValue(-50f);
+        leftAxis.setAxisMaxValue(15f);
+        leftAxis.setAxisMinValue(-1f);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
@@ -108,32 +108,17 @@ public class MoistureFragment extends Fragment implements OnChartGestureListener
 
     private ArrayList<String> setXAxisValues() {
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("10");
-        xVals.add("20");
-        xVals.add("30");
-        xVals.add("40");
-        xVals.add("50");
-        xVals.add("60");
-        xVals.add("70");
-        xVals.add("80");
-        xVals.add("90");
-        xVals.add("100");
-        xVals.add("110");
+        for(int i = 0; i < 12; i++){
+            xVals.add(i+"");
+        }
         return xVals;
     }
 
     private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-        yVals.add(new Entry(200, 0));
-        yVals.add(new Entry(80, 1));
-        yVals.add(new Entry(0, 2));
-        yVals.add(new Entry(120, 3));
-        yVals.add(new Entry(180.9f, 4));
-        yVals.add(new Entry(120, 5));
-        yVals.add(new Entry(100, 6));
-        yVals.add(new Entry(140, 7));
-        yVals.add(new Entry(125, 8));
-        yVals.add(new Entry(50, 9));
+        for (int i = 0; i <12; i++ ) {
+            yVals.add(new Entry(NevigationDrawer.ph[i], i));
+        }
         return yVals;
     }
 
