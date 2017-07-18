@@ -2,32 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_gravity="center"
     android:background="@color/bg_register"
-    android:padding="20dp"
-    android:layout_gravity="center">
+    android:padding="20dp">
 
     <ImageView
         android:id="@+id/sens_logo"
         android:layout_width="180dp"
         android:layout_height="80dp"
-        android:src="@drawable/sens_logo"
-        android:spacing="26dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="14dp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="90dp" />
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="50dp"
+        android:spacing="26dp"
+        android:src="@drawable/sens_logo" />
 
-<LinearLayout
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sens_logo"
+        android:layout_marginTop="52dp"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:id="@+id/linearLayout4"
-        android:layout_below="@+id/sens_logo"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="52dp">
+        android:paddingRight="20dp">
 
         <TextView
             android:layout_width="fill_parent"
@@ -62,7 +62,6 @@
 
         <EditText
             android:id="@+id/password"
-            android:singleLine="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -73,9 +72,10 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:padding="10dp"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="16sp"  />
+            android:textSize="16sp" />
 
         <!-- Login Button -->
 
@@ -85,27 +85,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/btn_login_bg"
+            android:onClick="vibrate"
             android:text="@string/btn_login"
             android:textColor="@color/btn_login"
-            android:onClick="vibrate"
             android:textSize="17sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <!-- Link to Login Screen -->
 
         <Button
-                android:id="@+id/forgot_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="15dp"
-                android:background="@null"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="Forgot Password?"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:padding="15dp"
+            android:text="Forgot Password?"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btnLinkToRegisterScreen"
@@ -113,9 +113,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
             android:background="@null"
-            android:text="@string/btn_link_to_register"
             android:gravity="center"
             android:padding="5dp"
+            android:text="@string/btn_link_to_register"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />

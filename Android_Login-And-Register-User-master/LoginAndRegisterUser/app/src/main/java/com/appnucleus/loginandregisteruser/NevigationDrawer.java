@@ -1,5 +1,6 @@
 package com.appnucleus.loginandregisteruser;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +34,7 @@ public class NevigationDrawer extends AppCompatActivity {
     RequestQueue rq;
     public static float temp2[], humid[], co[], ph[], light[];
     int aa;
+    ProgressDialog dialog1;
 
     @Override
 
@@ -55,10 +57,14 @@ public class NevigationDrawer extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
+        dialog1 = ProgressDialog.show(NevigationDrawer.this, "Processing",
+                "Loading Data. Please wait...", true);
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        @Override
+        public void run() {
+            dialog1.dismiss();
                 fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.main_container, new TemperatureFragment());
                 fragmentTransaction.commit();
@@ -119,8 +125,8 @@ public class NevigationDrawer extends AppCompatActivity {
 
                 });
 
-            }
-        }, 500);
+        }
+        }, 1500);
     }
 
     @Override

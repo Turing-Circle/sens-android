@@ -13,9 +13,9 @@
     <uses-library android:name="com.google.android.maps" />
 
     <application
-        android:label="SenS"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
+        android:label="SenS"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -36,8 +36,7 @@
         <activity android:name=".Activity_Main" />
         <activity android:name=".NevigationDrawer" />
         <activity android:name=".Logout" />
-        <activity android:name=".ForgotPassword"></activity>
-
+        <activity android:name=".ForgotPassword" />
     </application>
 
 </manifest>
