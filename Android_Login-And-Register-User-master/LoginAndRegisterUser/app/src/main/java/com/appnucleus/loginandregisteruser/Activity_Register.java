@@ -81,12 +81,12 @@ public class Activity_Register extends Activity {
                 pass_c = confirmPassword.getText().toString();
 
                 if(namex.equals("")||emailx.equals("")||phonex.equals("")||passx.equals("")||locationx.equals("")||prodct.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Please enter your details!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.details, Toast.LENGTH_SHORT).show();
                     vibrate(btnRegister);
                 }
                 else {
                     if(!terms_conditions.isChecked()) {
-                        Toast.makeText(getApplicationContext(), "Terms and conditions", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.terms, Toast.LENGTH_SHORT).show();
                         vibrate(btnRegister);
                     }
                     else {
@@ -94,7 +94,7 @@ public class Activity_Register extends Activity {
                             sendd();
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "Password not match", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.passNmatch, Toast.LENGTH_SHORT).show();
                             vibrate(btnRegister);
                         }
                     }
@@ -108,7 +108,6 @@ public class Activity_Register extends Activity {
                     public void onClick(View view) {
                         Intent i = new Intent(getApplicationContext(), Activity_Login.class);
                         startActivity(i);
-
                         overridePendingTransition(com.appnucleus.loginandregisteruser.R.anim.push_left_in, com.appnucleus.loginandregisteruser.R.anim.push_left_out);
                     }
                 });
@@ -121,7 +120,10 @@ public class Activity_Register extends Activity {
             }
 
             public void sendd() {
-                dialog = ProgressDialog.show(Activity_Register.this, "", "Signing Up Please wait...", true);
+                dialog = new ProgressDialog(Activity_Register.this);
+                dialog.setMessage(Activity_Register.this.getString(R.string.signing));
+                dialog.show();
+
                 url = "https://sens-agriculture.herokuapp.com/signup?name=" + namex + "&uname=" + emailx + "&phone=" + phonex + "&loc=" + locationx + "&pwd=" + passx + "&pid=" + prodct;
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -142,9 +144,7 @@ public class Activity_Register extends Activity {
                         dialog.dismiss();
                     }
                 });
-
                 rq.add(jsonObjectRequest);
-
             }
 
     public void vibrate(View view) {
@@ -155,7 +155,7 @@ public class Activity_Register extends Activity {
             public void check() {
                 dialog.dismiss();
 
-                Toast.makeText(getApplicationContext(), "User Registered", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.user_registered, Toast.LENGTH_LONG).show();
 
                 name.setText("");
                 email.setText("");
@@ -167,6 +167,5 @@ public class Activity_Register extends Activity {
 
                 Intent i1 = new Intent(Activity_Register.this, Activity_Login.class);
                 startActivity(i1);
-                finish();
             }
         }

@@ -5,50 +5,50 @@
     <group android:checkableBehavior="single">
     <item
         android:id="@+id/temperature"
-        android:title="Temperature Chart"
+        android:title="@string/temp_chart"
         android:icon="@drawable/ic_menu_slideshow"
         > </item>
 
     <item
         android:id="@+id/humidity"
-        android:title="Humidity Chart"
+        android:title="@string/humidity_chart"
         android:icon="@drawable/ic_menu_gallery"
         > </item>
 
     <item
         android:id="@+id/moisture"
-        android:title="pH Chart"
+        android:title="@string/pH_chart"
         android:icon="@drawable/ic_menu_gallery"
         > </item>
 
         <item
             android:id="@+id/uv"
-            android:title="Light Chart"
+            android:title="@string/light_chart"
             android:icon="@drawable/ic_menu_gallery"
             > </item>
 
         <item
             android:id="@+id/co"
-            android:title="CO Chart"
+            android:title="@string/co_chart"
             android:icon="@drawable/ic_menu_gallery"
             > </item>
 
 </group>
 
-    <item android:title="Social">
+    <item android:title="@string/social">
         <menu>
             <item
-                android:title="Add to Group"
+                android:title="@string/add_group"
                 android:id="@+id/add_to_group"
                 android:icon="@drawable/ic_menu_camera"
                 ></item>
             <item
-                android:title="Add to Group"
+                android:title="@string/add_group"
                 android:id="@+id/id_group"
                 android:icon="@drawable/ic_menu_send"
                 ></item>
             <item
-                android:title="Share"
+                android:title="@string/share"
                 android:id="@+id/id_share"
                 android:icon="@drawable/ic_menu_share"
                 ></item>

@@ -1,2 +1,2 @@
-# sens-android
-Android Application for SenS project
+# Android - Login And Register User
+Android application for Sens agriculture project

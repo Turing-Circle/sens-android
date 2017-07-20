@@ -24,7 +24,6 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import android.os.Vibrator;
 
-
 public class Activity_Login extends Activity {
     // LogCat tag
     private static final String TAG = Activity_Register.class.getSimpleName();
@@ -80,6 +79,7 @@ public class Activity_Login extends Activity {
                 Intent i = new Intent(getApplicationContext(),
                         Activity_Register.class);
                 startActivity(i);
+
                 overridePendingTransition(com.appnucleus.loginandregisteruser.R.anim.push_left_in, com.appnucleus.loginandregisteruser.R.anim.push_left_out);
             }
         });
@@ -95,15 +95,18 @@ public class Activity_Login extends Activity {
     }
 
     public void sendr() {
+        // pDialog.setMessage("Logging in ...");
+        //showDialog();
+        dialog = new ProgressDialog(Activity_Login.this);
+        dialog.setMessage(Activity_Login.this.getString(R.string.logging));
+        dialog.show();
 
-        dialog = ProgressDialog.show(Activity_Login.this, "", "Logging in....", true);
+
         url = "https://sens-agriculture.herokuapp.com/userdata?uname="+name3+"&pwd="+name4;
-
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
 
                 try {
                     JSONArray obj = response.getJSONArray("rows");
@@ -121,7 +124,7 @@ public class Activity_Login extends Activity {
                         inputPassword.startAnimation(shake);
                         inputEmail.startAnimation(shake);
                         vibrate(btnLogin);
-                        Toast.makeText(getApplicationContext(), "E-mail/password Invalid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.ep_wrong, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -133,7 +136,7 @@ public class Activity_Login extends Activity {
                 Log.e(TAG, "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                        hideDialog();
+                hideDialog();
             }
         });
 

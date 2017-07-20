@@ -1,9 +1,7 @@
 package com.appnucleus.loginandregisteruser;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -20,14 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.opencsv.CSVWriter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileWriter;
+import static com.appnucleus.loginandregisteruser.R.string.co_chart;
 
 public class NevigationDrawer extends AppCompatActivity {
     Toolbar toolbar;
@@ -40,7 +35,6 @@ public class NevigationDrawer extends AppCompatActivity {
     RequestQueue rq;
     public static float temp2[], humid[], co[], ph[], light[];
     int aa;
-    ProgressDialog dialog1;
 
     @Override
 
@@ -63,18 +57,14 @@ public class NevigationDrawer extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
-        dialog1 = ProgressDialog.show(NevigationDrawer.this, "Processing",
-                "Loading Data. Please wait...", true);
-
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
-        @Override
-        public void run() {
-            dialog1.dismiss();
+            @Override
+            public void run() {
                 fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.main_container, new TemperatureFragment());
                 fragmentTransaction.commit();
-                getSupportActionBar().setTitle("Temperature Chart");
+                getSupportActionBar().setTitle(R.string.temp_chart);
                 navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
                 navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -85,7 +75,7 @@ public class NevigationDrawer extends AppCompatActivity {
                                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new TemperatureFragment());
                                 fragmentTransaction.commit();
-                                getSupportActionBar().setTitle("Temperature Chart");
+                                getSupportActionBar().setTitle(R.string.temp_chart);
                                 item.setChecked(true);
                                 drawerLayout.closeDrawers();
                                 break;
@@ -94,7 +84,7 @@ public class NevigationDrawer extends AppCompatActivity {
                                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new HumidityFragment());
                                 fragmentTransaction.commit();
-                                getSupportActionBar().setTitle("Humidity Chart");
+                                getSupportActionBar().setTitle(R.string.humidity_chart);
                                 item.setChecked(true);
                                 drawerLayout.closeDrawers();
                                 break;
@@ -103,7 +93,7 @@ public class NevigationDrawer extends AppCompatActivity {
                                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new MoistureFragment());
                                 fragmentTransaction.commit();
-                                getSupportActionBar().setTitle("pH Chart");
+                                getSupportActionBar().setTitle(R.string.pH_chart);
                                 item.setChecked(true);
                                 drawerLayout.closeDrawers();
                                 break;
@@ -112,7 +102,7 @@ public class NevigationDrawer extends AppCompatActivity {
                                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new UVFragment());
                                 fragmentTransaction.commit();
-                                getSupportActionBar().setTitle("Light Chart");
+                                getSupportActionBar().setTitle(R.string.light_chart);
                                 item.setChecked(true);
                                 drawerLayout.closeDrawers();
                                 break;
@@ -121,7 +111,7 @@ public class NevigationDrawer extends AppCompatActivity {
                                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.main_container, new COFragment());
                                 fragmentTransaction.commit();
-                                getSupportActionBar().setTitle("CO Chart");
+                                getSupportActionBar().setTitle(R.string.co_chart);
                                 item.setChecked(true);
                                 drawerLayout.closeDrawers();
                                 break;
@@ -131,8 +121,8 @@ public class NevigationDrawer extends AppCompatActivity {
 
                 });
 
-        }
-        }, 1500);
+            }
+        }, 500);
     }
 
     @Override
@@ -152,8 +142,9 @@ public class NevigationDrawer extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            writetocsv();
-            //return true;
+            Intent intent = new Intent(NevigationDrawer.this, Settings.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
         if (log_id == R.id.log_out) {
             Intent intent = new Intent(NevigationDrawer.this, Logout.class);
@@ -164,37 +155,6 @@ public class NevigationDrawer extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-
-    }
-
-
-    public void writetocsv(){
-
-        File exportDir = new File(Environment.getExternalStorageDirectory(), "Data-for-analysis");
-        if (!exportDir.exists())
-        {
-            exportDir.mkdirs();
-        }
-
-        File file = new File(exportDir, "Data-from-server.csv");
-        try
-        {
-            file.createNewFile();
-            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
-            int i=0;
-            while(i<aa)
-            {
-                String arrStr[] ={temp2[i]+"",humid[i]+"",co[i]+"",ph[i]+"", light[i]+""};
-                csvWrite.writeNext(arrStr);
-                i++;
-            }
-            csvWrite.close();
-
-
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
     }
 
@@ -219,6 +179,7 @@ public class NevigationDrawer extends AppCompatActivity {
                     ph = new float[aa];
                     light = new float[aa];
 
+                   // Toast.makeText(getApplicationContext(), " entered in method ", Toast.LENGTH_LONG).show();
 
                     for (int i = 0; i < aa; i++) {
                         JSONObject jsonObject1 = obj.getJSONObject(i);

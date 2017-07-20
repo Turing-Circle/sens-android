@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/email"
-            android:text="senS@email.com"
+            android:text="@string/sens_gmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16dp"
@@ -44,7 +44,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@color/btn_logut_bg"
-        android:text="LOGIN"
+        android:text="@string/btn_login"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15dp"
