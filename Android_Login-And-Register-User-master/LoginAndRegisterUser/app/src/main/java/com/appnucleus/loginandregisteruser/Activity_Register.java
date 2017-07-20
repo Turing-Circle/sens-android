@@ -108,7 +108,7 @@ public class Activity_Register extends Activity {
                     public void onClick(View view) {
                         Intent i = new Intent(getApplicationContext(), Activity_Login.class);
                         startActivity(i);
-                        finish();
+
                         overridePendingTransition(com.appnucleus.loginandregisteruser.R.anim.push_left_in, com.appnucleus.loginandregisteruser.R.anim.push_left_out);
                     }
                 });

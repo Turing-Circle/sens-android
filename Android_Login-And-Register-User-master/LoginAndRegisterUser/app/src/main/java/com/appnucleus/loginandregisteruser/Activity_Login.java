@@ -80,7 +80,6 @@ public class Activity_Login extends Activity {
                 Intent i = new Intent(getApplicationContext(),
                         Activity_Register.class);
                 startActivity(i);
-                finish();
                 overridePendingTransition(com.appnucleus.loginandregisteruser.R.anim.push_left_in, com.appnucleus.loginandregisteruser.R.anim.push_left_out);
             }
         });
@@ -96,8 +95,7 @@ public class Activity_Login extends Activity {
     }
 
     public void sendr() {
-       // pDialog.setMessage("Logging in ...");
-        //showDialog();
+
         dialog = ProgressDialog.show(Activity_Login.this, "", "Logging in....", true);
         url = "https://sens-agriculture.herokuapp.com/userdata?uname="+name3+"&pwd="+name4;
 
