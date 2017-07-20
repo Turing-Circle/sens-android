@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "749732098085",
+    "project_id": "sens-8498d"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749732098085:android:5a04b6f02372e902",
+        "android_client_info": {
+          "package_name": "com.appnucleus.loginandregisteruser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749732098085-3v9he6iq03hcefik57r538qjulu9h6gu.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "749732098085-49dk03lqi4imq0s5ggidt8al64kk9i3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appnucleus.loginandregisteruser",
+            "certificate_hash": "ecb71fa0ecd016e72e1c9ff35cf127a33467d39d"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiZxMUR8q9lVK3pJ98WKNd7E_l4bymLgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">सेंस</string>
+    <string name="hint_email">ईमेल</string>
+    <string name="hint_name">पूरा नाम</string>
+    <string name="hint_password">पासवर्ड</string>
+    <string name="btn_login"> प्रवेश करे</string>
+    <string name="btn_register">पंजीकृत</string>
+    <string name="btn_link_to_register">सदस्य नहीं हैं?  प्रवेश कीजिए </string>
+    <string name="btn_link_to_login">सदस्य हैं! प्रवेश करे</string>
+    <string name="welcome">स्वागत</string>
+    <string name="btn_logout">बाहर </string>
+    <string name="name">पूरा नाम </string>
+    <string name="mobileNumber">मोबाइल नंबर</string>
+    <string name="location">स्थान</string>
+    <string name="confirm_password">कन्फ़र्म पासवर्ड</string>
+    <string name="terms_conditions">बटन दबा कर टर्म्स और कंडिशन को माने </string>
+    <string name="already_user">सदस्य हैं! प्रवेश करे</string>
+    <string name="forgot">पासवर्ड भूल गए? </string>
+    <string name="signUp">दर्ज करे</string>
+    <string name="drawer_open">ड्रॉअर खोल</string>
+    <string name="drawer_close">ड्रॉअर बंद</string>
+    <string name="register_email">पंजीकृत ईमेल</string>
+    <string name="submit">जमा करें</string>
+    <string name="sens_gmail">सेंस@जीमेल.कॉम</string>
+    <string name="p_id">प्रोडक्ट संख्या</string>
+
+
+    <string name="logging">प्रवेश हो रहा है ...</string>
+    <string name="signing">दर्ज हो रहा है ... </string>
+    <string name="details">विवरण दे</string>
+    <string name="terms">टर्म्स और कंडिशन</string>
+    <string name="passNmatch">पासवर्ड मेल गलत</string>
+    <string name="User_registered">उपयोगकर्ता पंजीकृत</string>
+    <string name="ep_wrong">ईमेल/पासवर्ड अमान्य</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">खाली फ्रग्मेंट </string>
+    <string name="action_settings">सेटिंग्स</string>
+
+    <!-- Nevigation bar text -->
+
+    <string name="temp_chart">तापमान सारणी</string>
+    <string name="humidity_chart">नमी सारणी</string>
+    <string name="pH_chart">पीएच सारणी</string>
+    <string name="light_chart">रोशनी सारणी</string>
+    <string name="co_chart">कार्बन मोनोऑक्साइड सारणी</string>
+    <string name="add_group">समूह में जोड़ें</string>
+    <string name="share"> सांझा करें</string>
+    <string name="social">सामाजिक</string>
+
+
+
+    <string-array name="location">
+        <item>दिल्ली</item>
+        <item>उत्तर दिल्ली </item>
+        <item>पूर्वी  दिल्ली</item>
+        <item>पश्चिम दिल्ली </item>
+        <item>दक्षिण दिल्ली </item>
+        <item>ग्रेटर नोएडा </item>
+        <item>उत्तर प्रदेश </item>
+        <item>कृष्णा नगर </item>
+        <item>निर्माण विहार</item>
+        <item>लक्ष्मी नगर </item>
+        <item>कश्मीरी गेट</item>
+        <item>नोएडा</item>
+    </string-array>
+
+</resources>
