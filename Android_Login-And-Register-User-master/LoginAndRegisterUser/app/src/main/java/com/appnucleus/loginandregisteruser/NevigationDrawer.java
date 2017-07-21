@@ -1,9 +1,15 @@
 package com.appnucleus.loginandregisteruser;
 
+import android.*;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -18,9 +24,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.opencsv.CSVWriter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileWriter;
 
 import static com.appnucleus.loginandregisteruser.R.string.co_chart;
 
@@ -31,15 +42,15 @@ public class NevigationDrawer extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
     public static String prod_id;
+    ProgressDialog dialog1;
     String url1;
     RequestQueue rq;
     public static float temp2[], humid[], co[], ph[], light[];
-    int aa;
+    int aa,permission;
+    final int PERMISSION = 1;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
-
 
         prod_id = getIntent().getStringExtra("p_id1");
 
@@ -57,10 +68,14 @@ public class NevigationDrawer extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
+        dialog1 = ProgressDialog.show(NevigationDrawer.this, NevigationDrawer.this.getString(R.string.processing),
+                NevigationDrawer.this.getString(R.string.loading), true);
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                dialog1.dismiss();
                 fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.main_container, new TemperatureFragment());
                 fragmentTransaction.commit();
@@ -122,7 +137,7 @@ public class NevigationDrawer extends AppCompatActivity {
                 });
 
             }
-        }, 500);
+        }, 1500);
     }
 
     @Override
@@ -142,9 +157,25 @@ public class NevigationDrawer extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(NevigationDrawer.this, Settings.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            //permissions
+            writetocsv();
+
+            /* permission = ContextCompat.checkSelfPermission(NevigationDrawer.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if ( permission != PackageManager.PERMISSION_GRANTED) {
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(NevigationDrawer.this,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                } else {
+                    ActivityCompat.requestPermissions(NevigationDrawer.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION);
+                    }
+            } */
+
         }
         if (log_id == R.id.log_out) {
             Intent intent = new Intent(NevigationDrawer.this, Logout.class);
@@ -204,5 +235,48 @@ public class NevigationDrawer extends AppCompatActivity {
         rq.add(jsonObjectRequest);
 
     }
+
+    public void writetocsv(){
+
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "Data-for-analysis");
+        if (!exportDir.exists())
+        {
+            exportDir.mkdirs();
+        }
+
+        File file = new File(exportDir, "Data-from-server.csv");
+        try
+        {
+            file.createNewFile();
+            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+            int i=0;
+            while(i<aa)
+            {
+                String arrStr[] ={temp2[i]+"",humid[i]+"",co[i]+"",ph[i]+"", light[i]+""};
+                csvWrite.writeNext(arrStr);
+                i++;
+            }
+            csvWrite.close();
+
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    /* public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                }
+                return;
+            }
+        }
+    } */
 
 }

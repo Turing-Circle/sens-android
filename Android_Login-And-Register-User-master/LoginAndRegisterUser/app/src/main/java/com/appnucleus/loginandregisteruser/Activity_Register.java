@@ -124,7 +124,7 @@ public class Activity_Register extends Activity {
                 dialog.setMessage(Activity_Register.this.getString(R.string.signing));
                 dialog.show();
 
-                url = "https://sens-agriculture.herokuapp.com/signup?name=" + namex + "&uname=" + emailx + "&phone=" + phonex + "&loc=" + locationx + "&pwd=" + passx + "&pid=" + prodct;
+                url = "https://sens-agriculture.herokuapp.com/register?name=" + namex + "&uname=" + emailx + "&phone=" + phonex + "&loc=" + locationx + "&pwd=" + passx + "&pid=" + prodct;
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override

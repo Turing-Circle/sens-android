@@ -33,10 +33,13 @@
     <string name="passNmatch">पासवर्ड मेल गलत</string>
     <string name="User_registered">उपयोगकर्ता पंजीकृत</string>
     <string name="ep_wrong">ईमेल/पासवर्ड अमान्य</string>
+    <string name="processing">प्रसंस्करण...</string>
+    <string name="checking">जाँच...</string>
+    <string name="loading">डेटा लोड हो रहा है...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">खाली फ्रग्मेंट </string>
-    <string name="action_settings">सेटिंग्स</string>
+    <string name="action_settings">CSV में निर्यात करें</string>
 
     <!-- Nevigation bar text -->
 

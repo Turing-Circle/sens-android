@@ -1,10 +1,15 @@
 package com.appnucleus.loginandregisteruser;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -36,7 +41,9 @@ public class Activity_Login extends Activity {
     ProgressDialog dialog;
     String p_id, name3, name4;
     int a, a1;
+    int permission;
     String email, password, url;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class Activity_Login extends Activity {
         rq = Volley.newRequestQueue(Activity_Login.this);
         super.onCreate(savedInstanceState);
         setContentView(com.appnucleus.loginandregisteruser.R.layout.activity_login);
+
 
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
@@ -59,6 +67,7 @@ public class Activity_Login extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+
                 email = inputEmail.getText().toString();
                 password = inputPassword.getText().toString();
                 try {
@@ -102,7 +111,7 @@ public class Activity_Login extends Activity {
         dialog.show();
 
 
-        url = "https://sens-agriculture.herokuapp.com/userdata?uname="+name3+"&pwd="+name4;
+        url = "https://sens-agriculture.herokuapp.com/login?uname="+name3+"&pwd="+name4;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

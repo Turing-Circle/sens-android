@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-library android:name="com.google.android.maps" />
 
@@ -37,7 +39,6 @@
         <activity android:name=".NevigationDrawer" />
         <activity android:name=".Logout" />
         <activity android:name=".ForgotPassword" />
-        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>
