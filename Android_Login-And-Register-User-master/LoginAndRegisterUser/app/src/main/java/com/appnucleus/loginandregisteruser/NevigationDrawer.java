@@ -1,6 +1,7 @@
 package com.appnucleus.loginandregisteruser;
 
 import android.*;
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -35,7 +36,8 @@ import java.io.FileWriter;
 
 import static com.appnucleus.loginandregisteruser.R.string.co_chart;
 
-public class NevigationDrawer extends AppCompatActivity {
+public class NevigationDrawer extends AppCompatActivity{
+    private static final int REQUEST_PERMISSION = 10;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -46,8 +48,7 @@ public class NevigationDrawer extends AppCompatActivity {
     String url1;
     RequestQueue rq;
     public static float temp2[], humid[], co[], ph[], light[];
-    int aa,permission;
-    final int PERMISSION = 1;
+    int aa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,22 +160,6 @@ public class NevigationDrawer extends AppCompatActivity {
         if (id == R.id.action_settings) {
             //permissions
             writetocsv();
-
-            /* permission = ContextCompat.checkSelfPermission(NevigationDrawer.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-            if ( permission != PackageManager.PERMISSION_GRANTED) {
-
-                if (ActivityCompat.shouldShowRequestPermissionRationale(NevigationDrawer.this,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                    // Show an explanation to the user *asynchronously* -- don't block
-                    // this thread waiting for the user's response! After the user
-                    // sees the explanation, try again to request the permission.
-
-                } else {
-                    ActivityCompat.requestPermissions(NevigationDrawer.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION);
-                    }
-            } */
 
         }
         if (log_id == R.id.log_out) {

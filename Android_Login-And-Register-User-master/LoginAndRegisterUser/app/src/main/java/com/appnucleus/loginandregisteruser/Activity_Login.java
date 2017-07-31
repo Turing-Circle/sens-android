@@ -29,9 +29,10 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import android.os.Vibrator;
 
-public class Activity_Login extends Activity {
+public class Activity_Login extends AbsRuntimePermission {
     // LogCat tag
     private static final String TAG = Activity_Register.class.getSimpleName();
+    private static final int REQUEST_PERMISSION = 10;
     private Button btnLogin;
     private Button btnLinkToRegister, btnLinkToForgotPassword;
     private EditText inputEmail;
@@ -52,6 +53,12 @@ public class Activity_Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(com.appnucleus.loginandregisteruser.R.layout.activity_login);
 
+        requestAppPermissions(new String[]{
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION},
+                        R.string.msg,REQUEST_PERMISSION);
 
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
@@ -101,6 +108,11 @@ public class Activity_Login extends Activity {
 
             }
         });
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode) {
+
     }
 
     public void sendr() {
