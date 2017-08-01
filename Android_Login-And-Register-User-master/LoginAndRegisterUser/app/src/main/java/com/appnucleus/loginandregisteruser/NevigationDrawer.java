@@ -2,9 +2,15 @@ package com.appnucleus.loginandregisteruser;
 
 import android.*;
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -43,7 +49,7 @@ public class NevigationDrawer extends AppCompatActivity{
     ActionBarDrawerToggle actionBarDrawerToggle;
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
-    public static String prod_id;
+    public static String prod_id,userName;
     ProgressDialog dialog1;
     String url1;
     RequestQueue rq;
@@ -54,10 +60,13 @@ public class NevigationDrawer extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
 
         prod_id = getIntent().getStringExtra("p_id1");
+        userName = getIntent().getStringExtra("username1");
 
         //json object request start
         rq = Volley.newRequestQueue(this);
-        //json object request end
+
+        //sending push notification
+        notif();
 
         super.onCreate(savedInstanceState);
         sendr();
@@ -251,17 +260,18 @@ public class NevigationDrawer extends AppCompatActivity{
 
     }
 
-    /* public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void notif()
+    {
+        NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notify=new Notification.Builder(getApplicationContext()).setContentTitle("SenS").setContentText("").
+                setContentTitle("Logged In as "+userName).setSmallIcon(R.drawable.abc).build();
 
+        notify.flags |= Notification.FLAG_AUTO_CANCEL;
+        notif.notify(0, notify);
 
-                }
-                return;
-            }
-        }
-    } */
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        r.play();
+    }
 
 }

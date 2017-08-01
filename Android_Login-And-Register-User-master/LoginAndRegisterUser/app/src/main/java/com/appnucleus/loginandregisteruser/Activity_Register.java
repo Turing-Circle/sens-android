@@ -140,7 +140,7 @@ public class Activity_Register extends Activity {
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Registration Error: " + error.getMessage());
                         Toast.makeText(getApplicationContext(),
-                                error.getMessage(), Toast.LENGTH_LONG).show();
+                                Activity_Register.this.getString(R.string.signError), Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
                 });

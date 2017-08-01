@@ -97,9 +97,25 @@ public class ForgotPassword extends AppCompatActivity {
     private void sendEmail() {
         //Getting content for email
         String email = editTextEmail.getText().toString().trim();
+        String newEmail = "";
+
+        for(int i = 0;i < email.length();i++){
+            if(i%2 == 0){
+                int asciiVal = (int)email.charAt(i);
+                int newAsciiVal = asciiVal-1;
+                char ch = (char)newAsciiVal;
+                newEmail+=ch;
+            }else{
+                int asciiVal = (int)email.charAt(i);
+                int newAsciiVal = asciiVal+1;
+                char ch = (char)newAsciiVal;
+                newEmail+=ch;
+            }
+        }
+
         String subject = "Reset Password - SenS";
         String message = "Link to reset your password : \n" +
-                "http://sens-agriculture.herokuapp.com/forgotPassword?uname="+email +"\n\n"+
+                "https://sens-agriculture.herokuapp.com/forgotPassword?uname="+newEmail +"\n\n"+
                 "Please ignore if you have not requested one \n\n\n" +
                 "Thank You, \n" +
                 "Team Sens";

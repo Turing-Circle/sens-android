@@ -16,12 +16,11 @@
 
     <application
         android:allowBackup="true"
+        android:configChanges="locale|orientation"
         android:icon="@drawable/ic_launcher"
         android:label="SenS"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:configChanges="locale|orientation">
-
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Activity_Login"
             android:screenOrientation="portrait">
@@ -39,6 +38,10 @@
         <activity android:name=".NevigationDrawer" />
         <activity android:name=".Logout" />
         <activity android:name=".ForgotPassword" />
+
+        <service
+            android:name=".MyIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

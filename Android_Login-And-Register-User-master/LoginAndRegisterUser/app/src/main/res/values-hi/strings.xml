@@ -36,6 +36,7 @@
     <string name="processing">प्रसंस्करण...</string>
     <string name="checking">जाँच...</string>
     <string name="loading">डेटा लोड हो रहा है...</string>
+    <string name="signError">दर्ज करने में विफल, बाद में पुन: प्रयास करें...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">खाली फ्रग्मेंट </string>
