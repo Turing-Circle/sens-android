@@ -48,6 +48,7 @@ public class Activity_Register extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         rq = Volley.newRequestQueue(this);
 
         name = (EditText)findViewById(R.id.name);

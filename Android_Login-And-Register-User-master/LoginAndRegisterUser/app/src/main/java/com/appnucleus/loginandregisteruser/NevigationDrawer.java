@@ -2,6 +2,7 @@ package com.appnucleus.loginandregisteruser;
 
 import android.*;
 import android.Manifest;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -49,9 +50,12 @@ public class NevigationDrawer extends AppCompatActivity{
     RequestQueue rq;
     public static float temp2[], humid[], co[], ph[], light[];
     int aa;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        session = new Session(this);
 
         prod_id = getIntent().getStringExtra("p_id1");
 
@@ -163,6 +167,9 @@ public class NevigationDrawer extends AppCompatActivity{
 
         }
         if (log_id == R.id.log_out) {
+
+            session.setLoggedin(false);
+
             Intent intent = new Intent(NevigationDrawer.this, Logout.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -171,7 +178,6 @@ public class NevigationDrawer extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
-
     }
 
     @Override

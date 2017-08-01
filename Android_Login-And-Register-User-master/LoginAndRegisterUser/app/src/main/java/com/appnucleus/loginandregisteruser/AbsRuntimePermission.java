@@ -12,17 +12,12 @@ import android.support.v4.content.ContextCompat;
 import android.util.SparseIntArray;
 import android.view.View;
 
-/**
- * Created by roysh on 7/27/2017.
- */
-
 public abstract class AbsRuntimePermission extends Activity {
     private SparseIntArray mErrorString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mErrorString = new SparseIntArray();
-
     }
 
     public abstract void onPermissionsGranted(int requestCode);
