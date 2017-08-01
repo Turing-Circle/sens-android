@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -44,10 +45,12 @@ public class Activity_Login extends AbsRuntimePermission {
     int a, a1;
     int permission;
     String email, password, url;
-
+    private Session session;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        session = new Session(this);
 
         rq = Volley.newRequestQueue(Activity_Login.this);
         super.onCreate(savedInstanceState);
@@ -72,6 +75,11 @@ public class Activity_Login extends AbsRuntimePermission {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
+        //mysesion
+       if (session.loggedin()){
+          startActivity(new Intent(Activity_Login.this, NevigationDrawer.class));
+            finish();
+        }
 
         // Login button Click Event
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -121,10 +129,10 @@ public class Activity_Login extends AbsRuntimePermission {
     public void sendr() {
         // pDialog.setMessage("Logging in ...");
         //showDialog();
+
         dialog = new ProgressDialog(Activity_Login.this);
         dialog.setMessage(Activity_Login.this.getString(R.string.logging));
         dialog.show();
-
 
         url = "https://sens-agriculture.herokuapp.com/login?uname="+name3+"&pwd="+name4;
 
@@ -136,6 +144,9 @@ public class Activity_Login extends AbsRuntimePermission {
                     JSONArray obj = response.getJSONArray("rows");
                     a1 = obj.length();
                     if(a1>0) {
+
+                        session.setLoggedin(true);
+
                         for (int i = 0; i < obj.length(); i++) {
                             JSONObject jsonObject1 = obj.getJSONObject(i);
                             p_id = jsonObject1.getString("product_id");

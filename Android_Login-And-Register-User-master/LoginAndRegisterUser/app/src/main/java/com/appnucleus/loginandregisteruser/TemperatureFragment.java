@@ -3,6 +3,7 @@ package com.appnucleus.loginandregisteruser;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,12 +26,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
-
-
-
 public class TemperatureFragment extends Fragment implements OnChartGestureListener,
-        OnChartValueSelectedListener
-{
+        OnChartValueSelectedListener {
     private LineChart mChart;
     String prod_id1;
     private static final String TAG = "nav";
@@ -105,8 +102,8 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
     private ArrayList<String> setXAxisValues() {
         ArrayList<String> xVals = new ArrayList<String>();
 
-        for(int i = 0; i < 12; i++){
-        xVals.add(i+"");
+        for (int i = 0; i < 12; i++) {
+            xVals.add(i + "");
         }
         return xVals;
 
@@ -115,10 +112,10 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
 
     private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-    for (int i = 0; i <12; i++ ) {
-        yVals.add(new Entry(NevigationDrawer.temp2[i], i));
-    }
-    return yVals;
+        for (int i = 0; i < 12; i++) {
+            yVals.add(new Entry(NevigationDrawer.temp2[i], i));
+        }
+        return yVals;
     }
 
     private void setData() {
@@ -207,5 +204,6 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
     public void onNothingSelected() {
         Log.i("Nothing selected", "Nothing selected.");
     }
+
 
 }

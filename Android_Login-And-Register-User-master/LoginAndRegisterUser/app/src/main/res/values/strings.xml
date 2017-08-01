@@ -12,7 +12,7 @@
     <string name="btn_logout">Logout</string>
     <string name="name">Fullname</string>
     <string name="mobileNumber">Mobile Number</string>
-    <string name="location">Location</string>
+    <string name="location">Place</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="terms_conditions">By clicking Sign-up you agree all the Terms and Conditions.</string>
     <string name="already_user">Already have Account? Login here.</string>
@@ -56,7 +56,6 @@
     <string name="social">Social</string>
     <string name="share">Share</string>
     <string name="add_group">Add to group</string>
-
 
 
     <string-array name="location">

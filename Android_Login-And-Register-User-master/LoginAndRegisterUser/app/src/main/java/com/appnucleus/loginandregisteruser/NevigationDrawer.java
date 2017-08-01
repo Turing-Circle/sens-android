@@ -4,6 +4,7 @@ import android.*;
 import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -55,9 +56,12 @@ public class NevigationDrawer extends AppCompatActivity{
     RequestQueue rq;
     public static float temp2[], humid[], co[], ph[], light[];
     int aa;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        session = new Session(this);
 
         prod_id = getIntent().getStringExtra("p_id1");
         userName = getIntent().getStringExtra("username1");
@@ -172,6 +176,9 @@ public class NevigationDrawer extends AppCompatActivity{
 
         }
         if (log_id == R.id.log_out) {
+
+            session.setLoggedin(false);
+
             Intent intent = new Intent(NevigationDrawer.this, Logout.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -180,7 +187,6 @@ public class NevigationDrawer extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
-
     }
 
     @Override

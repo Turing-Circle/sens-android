@@ -155,7 +155,6 @@ public class COFragment extends Fragment implements OnChartGestureListener,
 
     }
 
-
     @Override
     public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
         Log.i("Gesture", "START, x: " + me.getX() + ", y: " + me.getY());
@@ -211,6 +210,5 @@ public class COFragment extends Fragment implements OnChartGestureListener,
     public void onNothingSelected() {
         Log.i("Nothing selected", "Nothing selected.");
     }
-
 
 }
