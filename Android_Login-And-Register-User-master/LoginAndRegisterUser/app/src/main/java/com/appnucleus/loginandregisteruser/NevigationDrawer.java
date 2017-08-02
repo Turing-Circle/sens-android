@@ -5,16 +5,19 @@ import android.Manifest;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
@@ -37,7 +40,7 @@ import java.io.FileWriter;
 
 import static com.appnucleus.loginandregisteruser.R.string.co_chart;
 
-public class NevigationDrawer extends AppCompatActivity{
+public class NevigationDrawer extends AppCompatActivity {
     private static final int REQUEST_PERMISSION = 10;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
@@ -48,23 +51,43 @@ public class NevigationDrawer extends AppCompatActivity{
     ProgressDialog dialog1;
     String url1;
     RequestQueue rq;
+    public SharedPreferences someData;
+
     public static float temp2[], humid[], co[], ph[], light[];
     int aa;
     private Session session;
+    Runnable runnable;
+    public static String filename = "MySharedString";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //one time code
+        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //shared prefrence to save data
+        someData = getSharedPreferences(filename, 0);
+
+        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
+
+        if (isFirstRun) {
+            prod_id = getIntent().getStringExtra("p_id1");
+            SharedPreferences.Editor editor = wmbPreference.edit();
+            editor.putBoolean("FIRSTRUN", false);
+            editor.commit();
+            firstuse();
+        }
 
         session = new Session(this);
 
-        prod_id = getIntent().getStringExtra("p_id1");
+        // prod_id = getIntent().getStringExtra("p_id1");
 
         //json object request start
         rq = Volley.newRequestQueue(this);
         //json object request end
 
-        super.onCreate(savedInstanceState);
         sendr();
+
         setContentView(R.layout.activity_nevigation_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -143,7 +166,15 @@ public class NevigationDrawer extends AppCompatActivity{
 
             }
         }, 1500);
+
     }
+
+    private void firstuse() {
+        SharedPreferences.Editor editor = someData.edit();
+        editor.putString("SharedString", prod_id);
+        editor.commit();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -201,7 +232,7 @@ public class NevigationDrawer extends AppCompatActivity{
                     ph = new float[aa];
                     light = new float[aa];
 
-                   // Toast.makeText(getApplicationContext(), " entered in method ", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(), " entered in method ", Toast.LENGTH_LONG).show();
 
                     for (int i = 0; i < aa; i++) {
                         JSONObject jsonObject1 = obj.getJSONObject(i);
@@ -227,35 +258,44 @@ public class NevigationDrawer extends AppCompatActivity{
 
     }
 
-    public void writetocsv(){
+    public void writetocsv() {
 
         File exportDir = new File(Environment.getExternalStorageDirectory(), "Data-for-analysis");
-        if (!exportDir.exists())
-        {
+        if (!exportDir.exists()) {
             exportDir.mkdirs();
         }
 
         File file = new File(exportDir, "Data-from-server.csv");
-        try
-        {
+        try {
             file.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
-            int i=0;
-            while(i<aa)
-            {
-                String arrStr[] ={temp2[i]+"",humid[i]+"",co[i]+"",ph[i]+"", light[i]+""};
+            int i = 0;
+            while (i < aa) {
+                String arrStr[] = {temp2[i] + "", humid[i] + "", co[i] + "", ph[i] + "", light[i] + ""};
                 csvWrite.writeNext(arrStr);
                 i++;
             }
             csvWrite.close();
 
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable() {
+            public void run() {
+                handler.postDelayed(this, 3000);
+                sendr();
+            }
+        };
+    }
+
 
     /* public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -269,5 +309,18 @@ public class NevigationDrawer extends AppCompatActivity{
             }
         }
     } */
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable() {
+            public void run() {
+                handler.postDelayed(this, 3000);
+                sendr();
+            }
+        };
+    }
 
 }

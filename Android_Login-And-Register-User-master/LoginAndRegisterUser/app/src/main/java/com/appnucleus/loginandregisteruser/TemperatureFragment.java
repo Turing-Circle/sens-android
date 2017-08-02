@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 public class TemperatureFragment extends Fragment implements OnChartGestureListener,
         OnChartValueSelectedListener {
+
     private LineChart mChart;
     String prod_id1;
     private static final String TAG = "nav";
@@ -36,7 +37,6 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
 
     public TemperatureFragment() {
         // Required empty public constructor
-
     }
 
     @Override
@@ -106,9 +106,7 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
             xVals.add(i + "");
         }
         return xVals;
-
     }
-
 
     private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
@@ -204,6 +202,4 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
     public void onNothingSelected() {
         Log.i("Nothing selected", "Nothing selected.");
     }
-
-
 }
