@@ -56,6 +56,9 @@ public class Activity_Login extends AbsRuntimePermission {
         super.onCreate(savedInstanceState);
         setContentView(com.appnucleus.loginandregisteruser.R.layout.activity_login);
 
+        /* Intent intent = new Intent(Activity_Login.this, MyIntentService.class);
+        startService(intent); */
+
         requestAppPermissions(new String[]{
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -182,6 +185,7 @@ public class Activity_Login extends AbsRuntimePermission {
         if (a == 5) {
             Intent i1 = new Intent(Activity_Login.this, NevigationDrawer.class);
             i1.putExtra("p_id1", p_id);
+            i1.putExtra("username1", email);
             startActivity(i1);
             finish();
 

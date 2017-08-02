@@ -38,7 +38,12 @@
         <activity android:name=".NevigationDrawer" />
         <activity android:name=".Logout" />
         <activity android:name=".ForgotPassword" />
+
+        <service
+            android:name=".MyIntentService"
+            android:exported="false"></service>
         <activity android:name=".Session"></activity>
+
     </application>
 
 </manifest>

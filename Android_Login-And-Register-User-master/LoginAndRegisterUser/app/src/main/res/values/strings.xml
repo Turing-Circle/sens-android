@@ -40,7 +40,8 @@
     <string name="ep_wrong">E-mail/password Invalid</string>
     <string name="processing">Processing...</string>
     <string name="checking">Checking...</string>
-    <string name="loading">Loading Data. Please wait......</string>
+    <string name="loading">Loading Data. Please wait...</string>
+    <string name="signError">Failed to SignUp, Try again Later...</string>
 
 
     <!-- Nevigation bar text -->
