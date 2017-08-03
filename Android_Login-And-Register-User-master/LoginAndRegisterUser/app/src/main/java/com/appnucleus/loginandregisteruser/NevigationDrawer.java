@@ -2,11 +2,17 @@ package com.appnucleus.loginandregisteruser;
 
 import android.*;
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -17,7 +23,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
@@ -40,51 +45,53 @@ import java.io.FileWriter;
 
 import static com.appnucleus.loginandregisteruser.R.string.co_chart;
 
-public class NevigationDrawer extends AppCompatActivity {
+public class NevigationDrawer extends AppCompatActivity{
     private static final int REQUEST_PERMISSION = 10;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
-    public static String prod_id;
+    public static String prod_id,userName;
     ProgressDialog dialog1;
     String url1;
     RequestQueue rq;
-    public SharedPreferences someData;
-
     public static float temp2[], humid[], co[], ph[], light[];
     int aa;
     private Session session;
-    Runnable runnable;
+    public SharedPreferences someData;
     public static String filename = "MySharedString";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //one time code
-        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //shared prefrence to save data
-        someData = getSharedPreferences(filename, 0);
+        session = new Session(this);
+
+        prod_id = getIntent().getStringExtra("p_id1");
+        userName = getIntent().getStringExtra("username1");
+
+        //json object request start
+        rq = Volley.newRequestQueue(this);
+
+        //Shared prefrences start
+        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        someData = getSharedPreferences(filename,0);
+
+        //sending push notification
+        notif();
+
+        super.onCreate(savedInstanceState);
 
         boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
-
-        if (isFirstRun) {
-            prod_id = getIntent().getStringExtra("p_id1");
+        if (isFirstRun)
+        {
+            // Code to run once
             SharedPreferences.Editor editor = wmbPreference.edit();
             editor.putBoolean("FIRSTRUN", false);
             editor.commit();
             firstuse();
         }
-
-        session = new Session(this);
-
-        // prod_id = getIntent().getStringExtra("p_id1");
-
-        //json object request start
-        rq = Volley.newRequestQueue(this);
-        //json object request end
 
         sendr();
 
@@ -98,89 +105,20 @@ public class NevigationDrawer extends AppCompatActivity {
 
         dialog1 = ProgressDialog.show(NevigationDrawer.this, NevigationDrawer.this.getString(R.string.processing),
                 NevigationDrawer.this.getString(R.string.loading), true);
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog1.dismiss();
-                fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.main_container, new TemperatureFragment());
-                fragmentTransaction.commit();
-                getSupportActionBar().setTitle(R.string.temp_chart);
-                navigationView = (NavigationView) findViewById(R.id.navigation_view);
-
-                navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.temperature:
-                                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container, new TemperatureFragment());
-                                fragmentTransaction.commit();
-                                getSupportActionBar().setTitle(R.string.temp_chart);
-                                item.setChecked(true);
-                                drawerLayout.closeDrawers();
-                                break;
-
-                            case R.id.humidity:
-                                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container, new HumidityFragment());
-                                fragmentTransaction.commit();
-                                getSupportActionBar().setTitle(R.string.humidity_chart);
-                                item.setChecked(true);
-                                drawerLayout.closeDrawers();
-                                break;
-
-                            case R.id.moisture:
-                                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container, new MoistureFragment());
-                                fragmentTransaction.commit();
-                                getSupportActionBar().setTitle(R.string.pH_chart);
-                                item.setChecked(true);
-                                drawerLayout.closeDrawers();
-                                break;
-
-                            case R.id.uv:
-                                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container, new UVFragment());
-                                fragmentTransaction.commit();
-                                getSupportActionBar().setTitle(R.string.light_chart);
-                                item.setChecked(true);
-                                drawerLayout.closeDrawers();
-                                break;
-
-                            case R.id.co:
-                                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.main_container, new COFragment());
-                                fragmentTransaction.commit();
-                                getSupportActionBar().setTitle(R.string.co_chart);
-                                item.setChecked(true);
-                                drawerLayout.closeDrawers();
-                                break;
-                        }
-                        return false;
-                    }
-
-                });
-
-            }
-        }, 1500);
-
     }
-
-    private void firstuse() {
-        SharedPreferences.Editor editor = someData.edit();
-        editor.putString("SharedString", prod_id);
-        editor.commit();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    private void firstuse() {
+
+        SharedPreferences.Editor editor = someData.edit();
+        editor.putString("SharedString", prod_id);
+        editor.commit();
     }
 
     @Override
@@ -218,7 +156,10 @@ public class NevigationDrawer extends AppCompatActivity {
     }
 
     public void sendr() {
-        url1 = "https://sens-agriculture.herokuapp.com/sensordata?pid=" + prod_id;
+        someData = getSharedPreferences(filename, 0);
+        final String dataReturned = someData.getString("SharedString","couldn't load data");
+
+        url1 = "https://sens-agriculture.herokuapp.com/sensordata?pid=" + dataReturned;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
             @Override
@@ -243,6 +184,8 @@ public class NevigationDrawer extends AppCompatActivity {
                         light[i] = Float.parseFloat(jsonObject1.getString("light"));
 
                     }
+
+                    navigationDrawing();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -258,69 +201,112 @@ public class NevigationDrawer extends AppCompatActivity {
 
     }
 
-    public void writetocsv() {
+    public void writetocsv(){
 
         File exportDir = new File(Environment.getExternalStorageDirectory(), "Data-for-analysis");
-        if (!exportDir.exists()) {
+        if (!exportDir.exists())
+        {
             exportDir.mkdirs();
         }
 
         File file = new File(exportDir, "Data-from-server.csv");
-        try {
+        try
+        {
             file.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
-            int i = 0;
-            while (i < aa) {
-                String arrStr[] = {temp2[i] + "", humid[i] + "", co[i] + "", ph[i] + "", light[i] + ""};
+            int i=0;
+            while(i<aa)
+            {
+                String arrStr[] ={temp2[i]+"",humid[i]+"",co[i]+"",ph[i]+"", light[i]+""};
                 csvWrite.writeNext(arrStr);
                 i++;
             }
             csvWrite.close();
 
 
-        } catch (Exception e) {
+        }catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        final Handler handler = new Handler();
-        final Runnable r = new Runnable() {
-            public void run() {
-                handler.postDelayed(this, 3000);
-                sendr();
-            }
-        };
+    public void notif()
+    {
+        NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notify=new Notification.Builder(getApplicationContext()).setContentTitle("SenS").setContentText("").
+                setContentTitle("Logged In as "+userName).setSmallIcon(R.drawable.abc).build();
+
+        notify.flags |= Notification.FLAG_AUTO_CANCEL;
+        notif.notify(0, notify);
+
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        r.play();
     }
 
 
-    /* public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void navigationDrawing(){
+        dialog1.dismiss();
+        fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_container, new TemperatureFragment());
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.temp_chart);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.temperature:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new TemperatureFragment());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(R.string.temp_chart);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
 
+                    case R.id.humidity:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new HumidityFragment());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(R.string.humidity_chart);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
+
+                    case R.id.moisture:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new MoistureFragment());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(R.string.pH_chart);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
+
+                    case R.id.uv:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new UVFragment());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(R.string.light_chart);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
+
+                    case R.id.co:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new COFragment());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(R.string.co_chart);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
                 }
-                return;
+                return false;
             }
-        }
-    } */
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        final Handler handler = new Handler();
-        final Runnable r = new Runnable() {
-            public void run() {
-                handler.postDelayed(this, 3000);
-                sendr();
-            }
-        };
+        });
     }
 
 }
