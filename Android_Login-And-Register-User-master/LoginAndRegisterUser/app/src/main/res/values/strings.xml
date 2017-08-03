@@ -28,7 +28,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="action_settings">Export to CSV</string>
+    <string name="export_csv">Export to CSV</string>
 
 
     <string name="logging">Logging in ... </string>

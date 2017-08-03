@@ -40,7 +40,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">खाली फ्रग्मेंट </string>
-    <string name="action_settings">CSV में निर्यात करें</string>
+    <string name="export_csv">CSV में निर्यात करें</string>
 
     <!-- Nevigation bar text -->
 
