@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:src="@drawable/sens_logo" />
 
     <TextView
