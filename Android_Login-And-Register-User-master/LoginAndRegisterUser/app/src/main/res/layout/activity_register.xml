@@ -159,6 +159,7 @@
             android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
+            android:fontFamily="sans-serif"
             android:textSize="16sp" />
 
         <View
@@ -177,6 +178,7 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="Confirm Password"
+            android:fontFamily="sans-serif"
             android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
