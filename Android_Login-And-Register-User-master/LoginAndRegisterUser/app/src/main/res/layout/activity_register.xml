@@ -26,23 +26,11 @@
             android:spacing="26dp"
             android:src="@drawable/sens_logo" />
 
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.50"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/signUp"
-            android:textColor="@color/white_greyish"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="30dp"
             android:layout_weight="0.5"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/user"
@@ -90,6 +78,7 @@
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/phone"
             android:drawablePadding="8dp"
+            android:ems="10"
             android:gravity="center_vertical"
             android:hint="@string/mobileNumber"
             android:inputType="phone"
@@ -204,12 +193,12 @@
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:layout_weight="0.50"
-            android:background="#ea4c88"
+            android:background="@color/btn_login_bg"
             android:fontFamily="sans-serif"
             android:onClick="vibrate"
             android:padding="3dp"
             android:text="@string/signUp"
-            android:textColor="@color/white"
+            android:textColor="@color/btn_login"
             android:textSize="17sp"
             android:textStyle="bold" />
 
