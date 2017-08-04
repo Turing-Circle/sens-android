@@ -41,9 +41,14 @@
 
         <service
             android:name=".MyIntentService"
-            android:exported="false"></service>
-        <activity android:name=".Session"></activity>
+            android:exported="false" />
 
+        <activity android:name=".Session" />
+
+        <service
+            android:name=".SendDataService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

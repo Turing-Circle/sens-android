@@ -52,7 +52,7 @@ public class SendDataService extends Service {
             @Override
             public void run() {
 
-            notif();
+                notif();
             }
         });
         return android.app.Service.START_STICKY;
