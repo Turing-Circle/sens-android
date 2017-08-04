@@ -9,6 +9,9 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
@@ -62,8 +65,14 @@ public class MyIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
         //automatic push notification
-        //notif();
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                notif();
+            }
+        },0,2000);
 
 
         if (intent != null) {

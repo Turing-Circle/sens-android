@@ -79,7 +79,8 @@ public class NevigationDrawer extends AppCompatActivity{
         someData = getSharedPreferences(filename,0);
 
         //sending push notification
-        notif();
+        /* Intent inte = new Intent(NevigationDrawer.this, MyIntentService.class);
+        startService(inte); */
 
         super.onCreate(savedInstanceState);
 
@@ -136,6 +137,16 @@ public class NevigationDrawer extends AppCompatActivity{
 
         }
         if (log_id == R.id.log_out) {
+
+            //code to clear the p_id from file after logout
+            SharedPreferences.Editor editor = someData.edit();
+            editor.clear();
+            editor.commit();
+
+            SharedPreferences wmbSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor1 = wmbSharedPreferences.edit();
+            editor1.putBoolean("FIRSTRUN", true);
+            editor1.commit();
 
             session.setLoggedin(false);
 
