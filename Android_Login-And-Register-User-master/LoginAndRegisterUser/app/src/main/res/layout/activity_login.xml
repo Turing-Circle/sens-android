@@ -2,16 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="4.81"
-    android:background="@color/bg_register"
+    android:layout_weight="1"
+    android:background="@drawable/bgg"
     android:padding="20dp">
 
 <LinearLayout
     android:id="@+id/linearLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
     android:layout_gravity="center_vertical"
-    android:layout_weight="4.81"
     android:orientation="vertical"
     android:paddingBottom="30dp"
     android:paddingTop="30dp">
@@ -23,24 +24,15 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_weight="0.5"
+        android:layout_weight="0.30"
         android:src="@drawable/sens_logo" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="@string/btn_login"
-        android:textColor="@color/white_greyish"
-        android:textSize="25sp"
-        android:textStyle="bold" />
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_marginTop="35sp"
+            android:layout_weight="0.20"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/email"
             android:drawablePadding="8dp"
@@ -63,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="15dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.20"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/password"
             android:drawablePadding="10dp"
@@ -82,7 +74,7 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.50"
+            android:layout_weight="0.15"
             android:background="@color/btn_login_bg"
             android:onClick="vibrate"
             android:text="@string/btn_login"
@@ -97,12 +89,12 @@
         android:layout_below="@+id/linearLayout4"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.50"
+        android:layout_weight="0.30"
         android:background="@null"
         android:text="@string/forgot"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="14sp" />
+        android:textSize="17sp" />
 
     <!-- Link to Login Screen -->
 
@@ -112,13 +104,13 @@
         android:layout_height="0dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/forgot_password"
-        android:layout_weight="0.81"
+        android:layout_weight="0.25"
         android:background="@null"
         android:gravity="center"
         android:text="@string/btn_link_to_register"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="15sp" />
+        android:textSize="17sp" />
 
 </LinearLayout>
 

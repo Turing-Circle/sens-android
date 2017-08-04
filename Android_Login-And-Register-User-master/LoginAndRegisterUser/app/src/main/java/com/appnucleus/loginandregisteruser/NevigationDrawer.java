@@ -1,33 +1,26 @@
 package com.appnucleus.loginandregisteruser;
 
-import android.*;
-import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.design.widget.NavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -43,25 +36,22 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 
-import static com.appnucleus.loginandregisteruser.R.string.co_chart;
-
 public class NevigationDrawer extends AppCompatActivity{
     private static final int REQUEST_PERMISSION = 10;
+    public static String prod_id, userName;
+    public static float temp2[], humid[], co[], ph[], light[];
+    public static String filename = "MySharedString";
+    public SharedPreferences someData;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
-    public static String prod_id,userName;
     ProgressDialog dialog1;
     String url1;
     RequestQueue rq;
-    public static float temp2[], humid[], co[], ph[], light[];
     int aa;
     private Session session;
-    public SharedPreferences someData;
-    public static String filename = "MySharedString";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +90,6 @@ public class NevigationDrawer extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
@@ -116,7 +105,6 @@ public class NevigationDrawer extends AppCompatActivity{
     }
 
     private void firstuse() {
-
         SharedPreferences.Editor editor = someData.edit();
         editor.putString("SharedString", prod_id);
         editor.commit();
@@ -131,11 +119,11 @@ public class NevigationDrawer extends AppCompatActivity{
         int log_id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.export_csv) {
             //permissions
             writetocsv();
-
         }
+
         if (log_id == R.id.log_out) {
 
             //code to clear the p_id from file after logout
@@ -156,7 +144,6 @@ public class NevigationDrawer extends AppCompatActivity{
             finish();
             //      return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -193,7 +180,6 @@ public class NevigationDrawer extends AppCompatActivity{
                         co[i] = Float.parseFloat(jsonObject1.getString("co_leve"));
                         ph[i] = Float.parseFloat(jsonObject1.getString("ph"));
                         light[i] = Float.parseFloat(jsonObject1.getString("light"));
-
                     }
 
                     navigationDrawing();
@@ -204,12 +190,9 @@ public class NevigationDrawer extends AppCompatActivity{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
-
         rq.add(jsonObjectRequest);
-
     }
 
     public void writetocsv(){
@@ -256,10 +239,9 @@ public class NevigationDrawer extends AppCompatActivity{
         r.play();
     }
 
-
     public void navigationDrawing(){
         dialog1.dismiss();
-        fragmentTransaction = (FragmentTransaction) getSupportFragmentManager().beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.main_container, new TemperatureFragment());
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.temp_chart);
@@ -319,5 +301,4 @@ public class NevigationDrawer extends AppCompatActivity{
 
         });
     }
-
 }
