@@ -56,8 +56,6 @@ public class Activity_Login extends AbsRuntimePermission {
         super.onCreate(savedInstanceState);
         setContentView(com.appnucleus.loginandregisteruser.R.layout.activity_login);
 
-        /* Intent intent = new Intent(Activity_Login.this, MyIntentService.class);
-        startService(intent); */
 
         requestAppPermissions(new String[]{
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,

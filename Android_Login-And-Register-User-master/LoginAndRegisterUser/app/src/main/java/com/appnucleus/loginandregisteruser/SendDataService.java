@@ -13,6 +13,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by roysh on 8/4/2017.
  */
@@ -47,14 +50,12 @@ public class SendDataService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        handler = new Handler();
-        handler.post(new Runnable() {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-
                 notif();
             }
-        });
+        },0,2000);
         return android.app.Service.START_STICKY;
     }
 

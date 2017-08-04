@@ -69,8 +69,8 @@ public class NevigationDrawer extends AppCompatActivity{
         someData = getSharedPreferences(filename,0);
 
         //sending push notification
-         Intent inte = new Intent(NevigationDrawer.this, SendDataService.class);
-        startService(inte);
+         //Intent inte = new Intent(NevigationDrawer.this, SendDataService.class);
+        //startService(inte);
 
         super.onCreate(savedInstanceState);
 
