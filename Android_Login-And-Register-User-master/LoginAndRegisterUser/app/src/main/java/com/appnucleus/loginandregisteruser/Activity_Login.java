@@ -43,7 +43,6 @@ public class Activity_Login extends AbsRuntimePermission {
     ProgressDialog dialog;
     String p_id, name3, name4;
     int a, a1;
-    int permission;
     String email, password, url;
     private Session session;
 
@@ -125,8 +124,6 @@ public class Activity_Login extends AbsRuntimePermission {
     }
 
     public void sendr() {
-        // pDialog.setMessage("Logging in ...");
-        //showDialog();
 
         dialog = new ProgressDialog(Activity_Login.this);
         dialog.setMessage(Activity_Login.this.getString(R.string.logging));

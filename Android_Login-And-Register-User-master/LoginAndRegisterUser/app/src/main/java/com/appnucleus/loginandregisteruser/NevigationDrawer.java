@@ -38,7 +38,7 @@ import java.io.FileWriter;
 
 public class NevigationDrawer extends AppCompatActivity{
     private static final int REQUEST_PERMISSION = 10;
-    public static String prod_id, userName;
+    public static String prod_id, userName, ppp_id;
     public static float temp2[], humid[], co[], ph[], light[];
     public static String filename = "MySharedString";
     public SharedPreferences someData;
@@ -51,6 +51,7 @@ public class NevigationDrawer extends AppCompatActivity{
     String url1;
     RequestQueue rq;
     int aa;
+    Intent inte;
     private Session session;
 
     @Override
@@ -68,10 +69,6 @@ public class NevigationDrawer extends AppCompatActivity{
         SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
         someData = getSharedPreferences(filename,0);
 
-        //sending push notification
-         //Intent inte = new Intent(NevigationDrawer.this, SendDataService.class);
-        //startService(inte);
-
         super.onCreate(savedInstanceState);
 
         boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
@@ -81,10 +78,16 @@ public class NevigationDrawer extends AppCompatActivity{
             SharedPreferences.Editor editor = wmbPreference.edit();
             editor.putBoolean("FIRSTRUN", false);
             editor.commit();
+
+            //sending push notification
+            inte = new Intent(NevigationDrawer.this, SendDataService.class);
+            startService(inte);
+
             firstuse();
         }
 
         sendr();
+        notif();
 
         setContentView(R.layout.activity_nevigation_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -156,6 +159,7 @@ public class NevigationDrawer extends AppCompatActivity{
     public void sendr() {
         someData = getSharedPreferences(filename, 0);
         final String dataReturned = someData.getString("SharedString","couldn't load data");
+        ppp_id = dataReturned;
 
         url1 = "https://sens-agriculture.herokuapp.com/sensordata?pid=" + dataReturned;
 
@@ -229,7 +233,7 @@ public class NevigationDrawer extends AppCompatActivity{
     {
         NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notify=new Notification.Builder(getApplicationContext()).setContentTitle("SenS").setContentText("").
-                setContentTitle("Logged In as "+userName).setSmallIcon(R.drawable.abc).build();
+                setContentTitle("Product ID : "+ppp_id).setSmallIcon(R.drawable.abc).build();
 
         notify.flags |= Notification.FLAG_AUTO_CANCEL;
         notif.notify(0, notify);
