@@ -32,6 +32,9 @@
 
 
     <string name="logging">Logging in ... </string>
+    <string name="sending">Sending Message </string>
+    <string name="sent">Message Sent </string>
+    <string name="wait">PLease Wait ... </string>
     <string name="signing">Signing in ... </string>
     <string name="details">Please enter your details!</string>
     <string name="terms">Terms and condition</string>
