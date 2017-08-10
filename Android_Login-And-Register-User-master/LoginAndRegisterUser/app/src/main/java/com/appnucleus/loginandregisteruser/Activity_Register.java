@@ -73,13 +73,13 @@ public class Activity_Register extends Activity {
 
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                namex = name.getText().toString();
-                emailx = email.getText().toString();
-                phonex = phone.getText().toString();
-                locationx = location.getText().toString();
+                namex = name.getText().toString().trim();
+                emailx = email.getText().toString().trim();
+                phonex = phone.getText().toString().trim();
+                locationx = location.getText().toString().trim();
                 passx = pass_a.getText().toString().trim();
-                prodct = productid.getText().toString();
-                pass_c = confirmPassword.getText().toString();
+                prodct = productid.getText().toString().trim();
+                pass_c = confirmPassword.getText().toString().trim();
 
                 if(namex.equals("")||emailx.equals("")||phonex.equals("")||passx.equals("")||locationx.equals("")||prodct.equals("")) {
                     Toast.makeText(getApplicationContext(), R.string.details, Toast.LENGTH_SHORT).show();

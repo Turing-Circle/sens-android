@@ -83,12 +83,22 @@ public class Activity_Login extends AbsRuntimePermission {
 
             public void onClick(View view) {
 
-                email = inputEmail.getText().toString();
-                password = inputPassword.getText().toString();
+                email = inputEmail.getText().toString().trim();
+                password = inputPassword.getText().toString().trim();
                 try {
-                    name3 = URLEncoder.encode(email, "UTF-8");
-                    name4 = URLEncoder.encode(password, "UTF-8");
-                    sendr();
+                    if(email.equals("") || password.equals(""))
+                    {
+                        Toast.makeText(getApplicationContext(), R.string.ep_blank, Toast.LENGTH_LONG).show();
+                        Animation shake = AnimationUtils.loadAnimation(Activity_Login.this, R.anim.shake);
+                        inputPassword.startAnimation(shake);
+                        inputEmail.startAnimation(shake);
+                        vibrate(btnLogin);
+                    }
+                    else{
+                        name3 = URLEncoder.encode(email, "UTF-8");
+                        name4 = URLEncoder.encode(password, "UTF-8");
+                        sendr();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -139,13 +149,9 @@ public class Activity_Login extends AbsRuntimePermission {
                     JSONArray obj = response.getJSONArray("rows");
                     a1 = obj.length();
                     if(a1>0) {
-
-                        session.setLoggedin(true);
-
                         for (int i = 0; i < obj.length(); i++) {
                             JSONObject jsonObject1 = obj.getJSONObject(i);
                             p_id = jsonObject1.getString("product_id");
-                            a = p_id.length();
                             check();
                         }
                     } else{
@@ -155,6 +161,7 @@ public class Activity_Login extends AbsRuntimePermission {
                         inputEmail.startAnimation(shake);
                         vibrate(btnLogin);
                         Toast.makeText(getApplicationContext(), R.string.ep_wrong, Toast.LENGTH_LONG).show();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -177,7 +184,13 @@ public class Activity_Login extends AbsRuntimePermission {
 
         dialog.dismiss();
 
-        if (a == 5) {
+        if (p_id.equalsIgnoreCase("null")) {
+            Toast.makeText(getApplicationContext(), R.string.no_prod_id, Toast.LENGTH_LONG).show();
+        }
+        else
+            {
+
+            session.setLoggedin(true);
             Intent i1 = new Intent(Activity_Login.this, NevigationDrawer.class);
             i1.putExtra("p_id1", p_id);
             i1.putExtra("username1", email);

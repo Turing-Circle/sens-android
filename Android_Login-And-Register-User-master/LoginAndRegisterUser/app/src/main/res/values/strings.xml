@@ -41,6 +41,9 @@
     <string name="passNmatch">Password not match</string>
     <string name="user_registered">User Registered</string>
     <string name="ep_wrong">E-mail/password Invalid</string>
+    <string name="ep_blank">One(or more than one) flied(s) are blank</string>
+    <string name="e_blank">Email can not be blank</string>
+    <string name="no_prod_id">Product ID not found</string>
     <string name="processing">Processing...</string>
     <string name="checking">Checking...</string>
     <string name="loading">Loading Data. Please wait...</string>

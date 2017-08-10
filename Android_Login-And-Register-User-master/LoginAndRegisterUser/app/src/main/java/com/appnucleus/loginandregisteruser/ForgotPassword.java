@@ -1,8 +1,10 @@
 package com.appnucleus.loginandregisteruser;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -49,9 +51,19 @@ public class ForgotPassword extends AppCompatActivity {
 
             public void onClick(View view) {
                 email = editTextEmail.getText().toString().trim();
-                sendr();
-                pDialog = ProgressDialog.show(ForgotPassword.this, ForgotPassword.this.getString(R.string.processing),
-                        ForgotPassword.this.getString(R.string.checking), true);
+                if(email.equals("")){
+
+                    Toast.makeText(getApplicationContext(), R.string.e_blank, Toast.LENGTH_LONG).show();
+                    Animation shake = AnimationUtils.loadAnimation(ForgotPassword.this, R.anim.shake);
+                    editTextEmail.startAnimation(shake);
+                    vibrate(buttonSend);
+
+                }
+                else {
+                    sendr();
+                    pDialog = ProgressDialog.show(ForgotPassword.this, ForgotPassword.this.getString(R.string.processing),
+                            ForgotPassword.this.getString(R.string.checking), true);
+                }
             }
         });
 
@@ -96,7 +108,6 @@ public class ForgotPassword extends AppCompatActivity {
 
     private void sendEmail() {
         //Getting content for email
-        String email = editTextEmail.getText().toString().trim();
         String newEmail = "";
 
         for(int i = 0;i < email.length();i++){
@@ -143,5 +154,10 @@ public class ForgotPassword extends AppCompatActivity {
 
         AlertDialog alertDialog = alertd_.create();
         alertDialog.show();
+    }
+
+    public void vibrate(View view) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
     }
 }
