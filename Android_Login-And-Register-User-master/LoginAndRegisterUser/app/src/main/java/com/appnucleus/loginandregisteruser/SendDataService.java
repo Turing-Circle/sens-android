@@ -84,7 +84,7 @@ public class SendDataService extends Service {
                     }
 
                 }
-            },0,10000);
+            },0,1000*60*30);
 
 
 
@@ -93,7 +93,7 @@ public class SendDataService extends Service {
 
     public void notif()
     {
-        temprature_sum = temprature_sum/5;
+        temprature_sum = temprature_sum/12;
         NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notify=new Notification.Builder(getApplicationContext()).setContentTitle("SenS").setContentText("").
                 setContentTitle("Average temprature : "+temprature_sum).setSmallIcon(R.drawable.abc).build();
@@ -119,7 +119,7 @@ public class SendDataService extends Service {
                     JSONArray obj = response.getJSONArray("rows");
                     aa = obj.length();
 
-                        for (int i = aa-1; i > aa - 7; i--) {
+                        for (int i = aa-1; i > aa - 13; i--) {
                             JSONObject jsonObject1 = obj.getJSONObject(i);
                             temprature_sum += Float.parseFloat(jsonObject1.getString("temprature"));
                         }

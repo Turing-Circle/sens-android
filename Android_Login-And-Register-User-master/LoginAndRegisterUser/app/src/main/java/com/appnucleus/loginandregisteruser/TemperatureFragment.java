@@ -68,12 +68,12 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
         mChart.setScaleEnabled(true);
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
-        LimitLine upper_limit = new LimitLine(50f, "Upper Limit");
+        LimitLine upper_limit = new LimitLine(30f, "Upper Limit");
         upper_limit.setLineWidth(4f);
         upper_limit.enableDashedLine(10f, 10f, 0f);
         upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         upper_limit.setTextSize(10f);
-        LimitLine lower_limit = new LimitLine(-5f, "Lower Limit");
+        LimitLine lower_limit = new LimitLine(20f, "Lower Limit");
         lower_limit.setLineWidth(4f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
         lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
@@ -83,8 +83,8 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(upper_limit);
         leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(60f);
-        leftAxis.setAxisMinValue(-10f);
+        leftAxis.setAxisMaxValue(35f);
+        leftAxis.setAxisMinValue(15f);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
@@ -110,8 +110,9 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
 
     private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-        for (int i = 0; i < 12; i++) {
-            yVals.add(new Entry(NevigationDrawer.temp2[i], i));
+        int j = NevigationDrawer.aa;
+        for (int i = j-1; i > j-13; i--) {
+            yVals.add(new Entry(NevigationDrawer.temp2[i], 245-i));
         }
         return yVals;
     }
