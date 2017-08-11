@@ -110,6 +110,7 @@ public class NevigationDrawer extends AppCompatActivity{
     private void firstuse() {
         SharedPreferences.Editor editor = someData.edit();
         editor.putString("SharedString", prod_id);
+        editor.putString("pumpstatus", "0");
         editor.commit();
     }
 
