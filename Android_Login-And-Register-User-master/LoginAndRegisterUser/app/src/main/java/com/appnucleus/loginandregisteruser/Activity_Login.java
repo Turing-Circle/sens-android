@@ -60,7 +60,8 @@ public class Activity_Login extends AbsRuntimePermission {
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION},
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.SEND_SMS},
                         R.string.msg,REQUEST_PERMISSION);
 
         inputEmail = (EditText) findViewById(R.id.email);

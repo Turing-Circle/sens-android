@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/about"
     android:padding="15dp"
     tools:context="com.appnucleus.loginandregisteruser.about_us">
 

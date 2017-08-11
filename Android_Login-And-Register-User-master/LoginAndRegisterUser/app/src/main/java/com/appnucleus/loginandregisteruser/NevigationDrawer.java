@@ -318,6 +318,15 @@ public class NevigationDrawer extends AppCompatActivity{
                         drawerLayout.closeDrawers();
                         break;
 
+                    case R.id.on_off:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new onoff_settings());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(R.string.on_off);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
+
                 }
                 return true;
             }

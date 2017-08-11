@@ -28,6 +28,11 @@
             android:icon="@drawable/ph_icon"
             android:title="@string/co_chart"></item>
 
+        <item
+            android:id="@+id/on_off"
+            android:icon="@drawable/ph_icon"
+            android:title="@string/on_off"></item>
+
 </group>
     <item android:title="@string/about_us">
 

@@ -111,8 +111,9 @@ public class TemperatureFragment extends Fragment implements OnChartGestureListe
     private ArrayList<Entry> setYAxisValues() {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
         int j = NevigationDrawer.aa;
-        for (int i = j-1; i > j-13; i--) {
-            yVals.add(new Entry(NevigationDrawer.temp2[i], 245-i));
+        int k = j-1;
+        for (int i = k; i > k-12; i--) {
+            yVals.add(new Entry(NevigationDrawer.temp2[i], k-i));
         }
         return yVals;
     }
