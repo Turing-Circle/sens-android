@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class onoff_settings extends Fragment {
@@ -25,6 +26,7 @@ public class onoff_settings extends Fragment {
 
     Switch aSwitch;
     Button update;
+    TextView phone_number;
     String filename = "MySharedString";
     SharedPreferences someData;
     public String status = "",number = "";
@@ -52,6 +54,9 @@ public class onoff_settings extends Fragment {
         aSwitch = (Switch) view.findViewById(R.id.switch1);
         update = (Button) view.findViewById(R.id.settings);
         imageView = (ImageView) view.findViewById(R.id.imageView);
+        phone_number = (TextView)view.findViewById(R.id.phone_text);
+
+        phone_number.setText(number);
 
         if(status.equals("1")){
             aSwitch.setChecked(true);
@@ -81,6 +86,7 @@ public class onoff_settings extends Fragment {
                         SharedPreferences.Editor editor = someData.edit();
                         editor.putString("number", m_Text);
                         editor.commit();
+                        phone_number.setText(m_Text);
                     }
                 });
 
