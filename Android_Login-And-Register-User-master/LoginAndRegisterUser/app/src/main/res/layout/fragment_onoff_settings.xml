@@ -4,27 +4,27 @@
     android:layout_height="match_parent"
     tools:context="com.appnucleus.loginandregisteruser.onoff_settings">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <Switch
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="244dp"
-            android:text="Switch"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Switch" />
 
         <Button
             android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/switch1"
             android:layout_below="@+id/switch1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="91dp"
-            android:text="Update Phone NUmber" />
+            android:layout_marginTop="112dp"
+            android:text="Button" />
     </RelativeLayout>
 </FrameLayout>
