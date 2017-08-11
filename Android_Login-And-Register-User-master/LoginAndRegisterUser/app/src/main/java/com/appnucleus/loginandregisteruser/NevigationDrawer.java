@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,9 +28,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.opencsv.CSVWriter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileWriter;
 
@@ -38,6 +41,7 @@ public class NevigationDrawer extends AppCompatActivity{
     public static String prod_id, userName, ppp_id;
     public static float temp2[], humid[], co[], ph[], light[];
     public static String filename = "MySharedString";
+    public static int aa;
     public SharedPreferences someData;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
@@ -47,7 +51,6 @@ public class NevigationDrawer extends AppCompatActivity{
     ProgressDialog dialog1;
     String url1;
     RequestQueue rq;
-    public static int aa;
     Intent inte;
     private Session session;
 
@@ -296,8 +299,27 @@ public class NevigationDrawer extends AppCompatActivity{
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         break;
+
+                    case R.id.about_us:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new about_us());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(R.string.about_us);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
+
+                    case R.id.help:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new Help());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(R.string.help);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        break;
+
                 }
-                return false;
+                return true;
             }
 
         });

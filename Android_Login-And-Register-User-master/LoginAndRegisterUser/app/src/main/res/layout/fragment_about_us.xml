@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="15dp"
+    tools:context="com.appnucleus.loginandregisteruser.about_us">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Title  -->
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.5"
+            android:src="@drawable/sens_black" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/title_name"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.34"
+            android:gravity="center"
+            android:text="@string/team_name"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="italic" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/title_name"
+            android:background="@color/black" />
+
+        <!-- Name Details -->
+
+        <!-- Sanjoth Details -->
+
+        <TextView
+            android:id="@+id/sanjoth_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/title_name"
+            android:layout_marginTop="15dp"
+            android:layout_weight="0.24"
+            android:text="@string/sanjoth"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/sanjoth_gmail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/sanjoth_name"
+            android:layout_weight="0.25"
+            android:text="@string/sanjoth_gmail"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/sanjoth_gmail"
+            android:layout_weight="0.25"
+            android:text="@string/sanjoth_phone"
+            android:textColor="@color/black" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/black" />
+
+        <!-- Malik Details -->
+
+        <TextView
+            android:id="@+id/malik_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.26"
+            android:text="@string/shubham_malik"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="0.25"
+            android:text="@string/malik_gmail"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="0.25"
+            android:text="@string/malik_phone"
+            android:textColor="@color/black" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/black" />
+
+        <!-- Zeeshan Details -->
+
+        <TextView
+            android:id="@+id/zeeshan_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.30"
+            android:text="@string/zeeshan"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="0.25"
+            android:text="@string/zeeshan_mail"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="0.25"
+            android:text="@string/zeeshan_phone"
+            android:textColor="@color/black" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/black" />
+
+        <!-- Rai Details -->
+
+        <TextView
+            android:id="@+id/rai_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+
+            android:layout_weight="0.25"
+            android:text="@string/shubham_rai"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="0.25"
+            android:text="@string/rai_mail"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="0.25"
+            android:text="@string/rai_phone"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Login & Sign Up -->
     <string name="app_name">SenS</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -25,12 +26,40 @@
     <string name="sens_gmail">sens@gmail.com</string>
     <string name="p_id">Product ID</string>
     <string name="msg">Grant Permission for Writing in External Storage</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="export_csv">Export to CSV</string>
 
+    <!-- Team Name -->
+    <string name="team_name">Team SenS</string>
 
+    <string name="sanjoth">Sanjoth Shaw</string>
+    <string name="sanjoth_gmail">sanjothshaw@gmail.com</string>
+    <string name="sanjoth_phone">+91-7011667121</string>
+
+    <string name="shubham_malik">Shubham Malik</string>
+    <string name="malik_gmail">shubham.malik06@gmail.com</string>
+    <string name="malik_phone">+91-9654334984</string>
+
+    <string name="zeeshan">Zeeshan Alabedin</string>
+    <string name="zeeshan_mail">zeeshanalabedin@gmail.com</string>
+    <string name="zeeshan_phone">+91-9891154325</string>
+
+    <string name="shubham_rai">Shubham Rai</string>
+    <string name="rai_mail">roy.shubham51@gmail.com</string>
+    <string name="rai_phone">+91-7859878908</string>
+
+
+    <!-- kissan Healthcare Details -->
+    <string name="contact_no">Contact Numbers :- </string>
+    <string name="help_number"> Toll Free Number : 1800-1801-551\n\n
+        Kisan Call Center Helpline:\n
+        Ahmedabad : 79-27544479\n
+        Bangalore : 080-4300-9292\n
+        Kolkata : 033-4006-8851\n
+        Jaipur : 0141-236-1895\n
+        Noida : 0120-4225-888\n</string>
+
+    <string name="help_mail">Help Mail : </string>
+    <string name="help_mail_address"> customercare@kisangroup.com </string>
     <string name="logging">Logging in ... </string>
     <string name="sending">Sending Message </string>
     <string name="sent">Message Sent </string>
@@ -49,21 +78,17 @@
     <string name="loading">Loading Data. Please wait...</string>
     <string name="signError">Failed to SignUp, Try again Later...</string>
 
-
     <!-- Nevigation bar text -->
-
     <string name="temp_chart">Temperature Chart</string>
     <string name="humidity_chart">Humidity Chart</string>
     <string name="pH_chart">PH Chart</string>
     <string name="light_chart">Light Chart</string>
     <string name="co_chart">CO Chart</string>
-
-
     <string name="social">Social</string>
-    <string name="share">Share</string>
-    <string name="add_group">Add to group</string>
+    <string name="help">Kisan Call Center </string>
+    <string name="about_us">About Us</string>
 
-
+    <!-- Array locations -->
     <string-array name="location">
         <item>Delhi</item>
         <item>East Delhi</item>
@@ -78,5 +103,13 @@
         <item>Kashmiri Gate </item>
         <item>Noida</item>
     </string-array>
+
+    <string name="share">share</string>
+    <string name="User_registered">User Registered</string>
+    <string name="add_group">Add group</string>
+
+
+    <string name="upper_limit">Upper limit</string>
+
 
 </resources>

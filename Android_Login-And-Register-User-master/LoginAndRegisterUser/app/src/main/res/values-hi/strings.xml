@@ -45,7 +45,6 @@
     <string name="e_blank">ईमेल रिक्त नहीं हो सकता</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">खाली फ्रग्मेंट </string>
     <string name="export_csv">CSV में निर्यात करें</string>
 
     <!-- Nevigation bar text -->
@@ -75,5 +74,26 @@
         <item>कश्मीरी गेट</item>
         <item>नोएडा</item>
     </string-array>
+    <string name="team_name">समूह सेंस</string>
+    <string name="user_registered">उपयोगकर्ता पंजीकृत</string>
+    <string name="zeeshan">ज़ीशान अलाबेदीन</string>
+    <string name="shubham_rai">शुभम राय</string>
+    <string name="contact_no">संपर्क संख्या</string>
+    <string name="help">मदद</string>
+    <string name="help_mail">मदद मेल :</string>
+    <string name="help_number">सहायता नंबर</string>
+    <string name="help_mail_address">सेंस@जीमेल.कॉम</string>
+    <string name="about_us">हमारे बारे में</string>
+    <string name="msg">बाह्य भंडारण में लिखने के लिए अनुमति अनुदान</string>
+    <string name="shubham_malik">शुभम मलिक</string>
+    <string name="sanjoth">संजोथ शा</string>
+    <string name="malik_phone">+91-9654334984</string>
+    <string name="malik_gmail">शुभम.मलिक06@जीमेल.कॉम</string>
+    <string name="rai_mail">राय.शुभम51@जीमेल.कॉम</string>
+    <string name="rai_phone">+91-7859878908</string>
+    <string name="sanjoth_phone">+91-7011667121</string>
+    <string name="sanjoth_gmail">संजोथशा@जीमेल.कॉम</string>
+    <string name="zeeshan_phone">+91-9891154325</string>
+    <string name="zeeshan_mail">ज़ीशानअलाबेदीन@जीमेल.कॉम</string>
 
 </resources>

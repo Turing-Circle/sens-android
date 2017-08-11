@@ -39,12 +39,11 @@
         <activity android:name=".Logout" />
         <activity android:name=".ForgotPassword" />
 
-        <activity android:name=".Session" />
-
         <service
-            android:name=".SendDataService"
-            android:enabled="true"
-            android:exported="true"></service>
+            android:name=".MyIntentService"
+            android:exported="false"></service>
+        <activity android:name=".Session"></activity>
+
     </application>
 
 </manifest>

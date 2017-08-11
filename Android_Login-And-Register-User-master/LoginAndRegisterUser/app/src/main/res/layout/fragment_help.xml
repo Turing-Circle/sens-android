@@ -1,0 +1,92 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background"
+    android:padding="15dp"
+    tools:context="com.appnucleus.loginandregisteruser.about_us">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Title  -->
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.14"
+            android:gravity="center"
+            android:text="@string/help"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/title_name"
+            android:background="@color/black" />
+
+        <!-- Details -->
+
+        <TextView
+            android:id="@+id/contact_no"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/title_name"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.10"
+            android:text="@string/contact_no"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/help_number"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/title_name"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.50"
+            android:text="@string/help_number"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/help_mail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/contact_no"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.14"
+            android:text="@string/help_mail"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/help_maail_address"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/contact_no"
+            android:layout_weight="0.50"
+            android:text="@string/help_mail_address"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+</FrameLayout>
