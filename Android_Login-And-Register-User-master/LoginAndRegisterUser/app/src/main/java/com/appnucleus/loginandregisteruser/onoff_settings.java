@@ -2,9 +2,9 @@ package com.appnucleus.loginandregisteruser;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
-import android.support.transition.Transition;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
@@ -17,9 +17,13 @@ import android.widget.Toast;
 
 public class onoff_settings extends Fragment {
 
+    public String status = "";
     ImageView imageView;
     Switch aSwitch;
     boolean turnedOn = false;
+    String filename = "MySharedString";
+    SharedPreferences someData;
+
 
     public onoff_settings() {
         // Required empty public constructor
@@ -31,26 +35,21 @@ public class onoff_settings extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_onoff_settings, container, false);
 
-        imageView = (ImageView) view.findViewById(R.id.image_off);
+        imageView = (ImageView) view.findViewById(R.id.imageView);
         aSwitch = (Switch) view.findViewById(R.id.switch1);
 
+        someData = this.getActivity().getSharedPreferences(filename, 0);
+        final String dataReturned = someData.getString("pumpstatus", "couldn't load data");
+        status = dataReturned;
 
-        aSwitch.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                if(!turnedOn){
-                    imageView.setImageResource(R.drawable.trans_on);
-                    ((TransitionDrawable) imageView.getDrawable()).startTransition(3000);
-                    turnedOn = false;
-                }
-                else{
-                    imageView.setImageResource(R.drawable.trans_off);
-                    ((TransitionDrawable) imageView.getDrawable()).startTransition(3000);
-                    turnedOn = true;
-                }
-            }
+        if (status.equals("1")) {
+            aSwitch.setChecked(true);
+            imageView.setImageResource(R.drawable.trans_on);
+        } else {
+            aSwitch.setChecked(false);
+            imageView.setImageResource(R.drawable.trans_off);
+        }
 
-        });
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -58,11 +57,26 @@ public class onoff_settings extends Fragment {
 
                 if (isChecked == true) {
                     send("1");
+
                     Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences.Editor editor = someData.edit();
+                    editor.putString("pumpstatus", "1");
+
+                    ((TransitionDrawable) imageView.getDrawable()).startTransition(3000);
+
+                    editor.commit();
                 } else {
                     send("0");
                     Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = someData.edit();
+                    editor.putString("pumpstatus", "0");
+                    ((TransitionDrawable) imageView.getDrawable()).startTransition(3000);
+
+                    editor.commit();
+
                 }
+
             }
         });
         return view;
