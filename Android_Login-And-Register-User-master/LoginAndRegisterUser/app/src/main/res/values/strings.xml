@@ -107,12 +107,10 @@
     <string name="share">share</string>
     <string name="User_registered">User Registered</string>
     <string name="add_group">Add group</string>
-    <string name="on_off">On/Off</string>
+    <string name="on_off">on/off</string>
+
 
     <string name="upper_limit">Upper limit</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
