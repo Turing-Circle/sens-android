@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -26,6 +28,8 @@ public class onoff_settings extends Fragment {
     String filename = "MySharedString";
     SharedPreferences someData;
     public String status = "",number = "";
+    ImageView imageView;
+
 
 
 
@@ -36,6 +40,7 @@ public class onoff_settings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_onoff_settings, container, false);
         someData = this.getActivity().getSharedPreferences(filename,0);
@@ -46,12 +51,16 @@ public class onoff_settings extends Fragment {
 
         aSwitch = (Switch) view.findViewById(R.id.switch1);
         update = (Button) view.findViewById(R.id.settings);
+        imageView = (ImageView) view.findViewById(R.id.imageView);
 
         if(status.equals("1")){
             aSwitch.setChecked(true);
+            imageView.setImageResource(R.drawable.trans_off);
+
         }
         else{
             aSwitch.setChecked(false);
+            imageView.setImageResource(R.drawable.trans_on);
         }
 
         update.setOnClickListener(new View.OnClickListener() {
@@ -104,12 +113,16 @@ public class onoff_settings extends Fragment {
                         Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
                         SharedPreferences.Editor editor = someData.edit();
                         editor.putString("pumpstatus", "1");
+                        imageView.setImageResource(R.drawable.trans_on);
+                        ((TransitionDrawable) imageView.getDrawable()).startTransition(3000);
                         editor.commit();
                     } else {
                         send("0",a);
                         Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
                         SharedPreferences.Editor editor = someData.edit();
                         editor.putString("pumpstatus", "0");
+                        imageView.setImageResource(R.drawable.trans_off);
+                        ((TransitionDrawable) imageView.getDrawable()).startTransition(3000);
                         editor.commit();
                     }
                 }

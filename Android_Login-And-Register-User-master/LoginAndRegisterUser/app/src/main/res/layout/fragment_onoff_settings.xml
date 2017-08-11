@@ -9,22 +9,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/trans_on" />
+
 
         <Switch
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Switch" />
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="0.5"
+            android:text="Off" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="188dp"
+            android:layout_marginStart="0dp"
+            android:text="On"
+            android:textColor="@color/black"
+            android:layout_alignBaseline="@+id/switch1"
+            android:layout_alignBottom="@+id/switch1"
+            android:layout_toEndOf="@+id/switch1" />
 
         <Button
             android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/switch1"
-            android:layout_below="@+id/switch1"
-            android:layout_marginTop="112dp"
-            android:text="Button" />
+            android:text="Update Number for Pump"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="88dp" />
     </RelativeLayout>
 </FrameLayout>
