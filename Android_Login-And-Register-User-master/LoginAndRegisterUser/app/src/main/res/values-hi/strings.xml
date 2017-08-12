@@ -95,5 +95,7 @@
     <string name="sanjoth_gmail">संजोथशा@जीमेल.कॉम</string>
     <string name="zeeshan_phone">+91-9891154325</string>
     <string name="zeeshan_mail">ज़ीशानअलाबेदीन@जीमेल.कॉम</string>
+    <string name="on_off">चालू  / बंद</string>
+    <string name="pump">पानी का पंप</string>
 
 </resources>

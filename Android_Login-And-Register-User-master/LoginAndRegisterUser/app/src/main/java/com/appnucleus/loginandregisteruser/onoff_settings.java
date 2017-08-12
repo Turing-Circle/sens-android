@@ -23,17 +23,13 @@ import android.widget.Toast;
 
 public class onoff_settings extends Fragment {
 
-
+    public String status = "", number = "";
     Switch aSwitch;
     Button update;
     TextView phone_number;
     String filename = "MySharedString";
     SharedPreferences someData;
-    public String status = "",number = "";
     ImageView imageView;
-
-
-
 
     public onoff_settings() {
         // Required empty public constructor
@@ -61,7 +57,6 @@ public class onoff_settings extends Fragment {
         if(status.equals("1")){
             aSwitch.setChecked(true);
             imageView.setImageResource(R.drawable.trans_off);
-
         }
         else{
             aSwitch.setChecked(false);
@@ -71,7 +66,6 @@ public class onoff_settings extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle(" Update Phone Number");
@@ -98,7 +92,6 @@ public class onoff_settings extends Fragment {
                 });
 
                 builder.show();
-
             }
         });
 
@@ -116,7 +109,7 @@ public class onoff_settings extends Fragment {
                 {
                     if (isChecked == true) {
                         send("1",a);
-                        Toast.makeText(getContext(), "ON", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Pump ON", Toast.LENGTH_LONG).show();
                         SharedPreferences.Editor editor = someData.edit();
                         editor.putString("pumpstatus", "1");
                         imageView.setImageResource(R.drawable.trans_on);
@@ -124,24 +117,20 @@ public class onoff_settings extends Fragment {
                         editor.commit();
                     } else {
                         send("0",a);
-                        Toast.makeText(getContext(), "OFF", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Pump OFF", Toast.LENGTH_SHORT).show();
                         SharedPreferences.Editor editor = someData.edit();
                         editor.putString("pumpstatus", "0");
                         imageView.setImageResource(R.drawable.trans_off);
-                        ((TransitionDrawable) imageView.getDrawable()).startTransition(3000);
+                        ((TransitionDrawable) imageView.getDrawable()).startTransition(2000);
                         editor.commit();
                     }
                 }
-
             }
         });
-
         return view;
     }
 
-
     public void send(String msgg, String number){
-
 
         //Getting intent and PendingIntent instance
         Intent intent=new Intent(getActivity(),onoff_settings.class);
@@ -150,10 +139,5 @@ public class onoff_settings extends Fragment {
         //Get the SmsManager instance and call the sendTextMessage method to send message
         SmsManager sms=SmsManager.getDefault();
         sms.sendTextMessage(number, null, msgg, pi,null);
-
-        Toast.makeText(getActivity(), "Message Sent successfully!",
-                Toast.LENGTH_LONG).show();
     }
-
-
 }

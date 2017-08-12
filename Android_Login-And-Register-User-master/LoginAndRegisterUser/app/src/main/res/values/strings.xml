@@ -107,9 +107,7 @@
     <string name="share">share</string>
     <string name="User_registered">User Registered</string>
     <string name="add_group">Add group</string>
-    <string name="on_off">Pump On/Off</string>
-
-    <string name="upper_limit">Upper limit</string>
-
+    <string name="on_off">On/Off</string>
+    <string name="pump">Water-Pump Controls</string>
 
 </resources>
